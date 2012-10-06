@@ -9,7 +9,7 @@ public class Player : Entity {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		base.Update();
+	void FixedUpdate () {
+		base.FixedUpdate();
 	}
 }
