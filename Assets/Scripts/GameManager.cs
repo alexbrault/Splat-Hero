@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour {
 		Entities.Add(p2o);
 		Entities.Add(p1o);
 		
+		Entities.AddRange(GameObject.FindGameObjectsWithTag("Goal"));
+		
 		NewBall ();
 	}
 	
