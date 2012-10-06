@@ -15,6 +15,8 @@ public class AnimationFrame
 
 	public int OffsetY { get; private set; }
 	
+	public Vector2 Offset { get {return new Vector2(OffsetX, OffsetY);}}
+	
 	public AnimationFrame (int x, int y, int width, int height, int offX = 0, int offY = 0)
 	{
 		X = x;
@@ -23,5 +25,16 @@ public class AnimationFrame
 		Height = height;
 		OffsetX = offX;
 		OffsetY = offY;
+	}
+	
+	private Texture2D frame = null;
+	public Texture GetFrame(Texture2D sheet) {
+			if (frame == null) {
+				frame = new Texture2D(Width, Height);
+				frame.SetPixels(sheet.GetPixels(X, Y, Width, Height));
+				frame.Apply();
+			}
+			
+			return frame;
 	}
 }
