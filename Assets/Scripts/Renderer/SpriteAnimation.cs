@@ -8,7 +8,7 @@ public class SpriteAnimation : IEnumerable
 	
 	public int FrameRate { get; private set; }
 	
-	private int rawFrame = 0;
+	private float rawFrame = 0;
 	private int currentFrameIndex = 0;
 	
 	public SpriteAnimation(int framerate) {
@@ -27,7 +27,8 @@ public class SpriteAnimation : IEnumerable
 	
 	public AnimationFrame CurrentFrame {
 		get {
-			rawFrame++;
+			rawFrame += Time.deltaTime * 1000;
+			
 			if (rawFrame >= FrameRate)
 			{
 				rawFrame -= FrameRate;

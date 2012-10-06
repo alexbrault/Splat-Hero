@@ -9,7 +9,7 @@ public class Entity : MonoBehaviour {
 	protected void Start () {
 		spritesheet = new Spritesheet();
 		spritesheet.Load("Sprites/ironman2");
-		spritesheet.CreateAnimation("Patrick", 10);
+		spritesheet.CreateAnimation("Patrick", 300);
 		spritesheet.AddFrame("Patrick", 68, 96, 54, 96);
 		spritesheet.AddFrame("Patrick", 122, 96, 54, 96);
 		spritesheet.AddFrame("Patrick", 177, 96, 54, 96);
@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	protected void FixedUpdate () {
+	protected void Update () {
 		spritesheet.Render();
 	}
 }
