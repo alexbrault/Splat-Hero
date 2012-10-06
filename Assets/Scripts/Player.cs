@@ -21,9 +21,12 @@ public class Player : Entity {
 		base.Start();
 		
 		spritesheet = new Spritesheet(gameObject);
-		spritesheet.Load("Sprites/ironman2");
+		spritesheet.Load("Sprites/ironMan");
 		spritesheet.CreateAnimation("Patrick", 300);
-		spritesheet.AddFrame("Patrick", 48, 0, 16, 16);
+		spritesheet.AddFrame("Patrick", 0, 0, 32, 32);
+		spritesheet.AddFrame("Patrick", 0, 32, 32, 32);
+		spritesheet.AddFrame("Patrick", 0, 64, 32, 32);
+		spritesheet.AddFrame("Patrick", 0, 96, 32, 32);
 		spritesheet.SetCurrentAnimation("Patrick");
 	}
 	
@@ -35,8 +38,20 @@ public class Player : Entity {
 	
 	protected void Move()
 	{
-		float xMovement = -Input.GetAxisRaw("Player1_MoveX");
-		float zMovement = -Input.GetAxisRaw("Player1_MoveZ");
+		float xMovement = 0.0f;
+		float zMovement = 0.0f;
+		
+		if(playerID == PlayerID.PLAYER1)
+		{
+			xMovement = -Input.GetAxisRaw("Player1_MoveX");
+			zMovement = -Input.GetAxisRaw("Player1_MoveZ");
+		}
+		
+		else if(playerID == PlayerID.PLAYER2)
+		{
+			xMovement = -Input.GetAxisRaw("Player2_MoveX");
+			zMovement = -Input.GetAxisRaw("Player2_MoveZ");
+		}
 
         Vector3 actualForce = gameObject.rigidbody.velocity;
 
