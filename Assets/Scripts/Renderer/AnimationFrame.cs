@@ -33,7 +33,8 @@ public class AnimationFrame
 	{
 		if (frame == null) {
 			frame = new Texture2D (Width, Height);
- 			frame.SetPixels (sheet.GetPixels (X, sheet.height - Y, Width, Height));
+			frame.filterMode = FilterMode.Point;
+ 			frame.SetPixels (sheet.GetPixels (X, sheet.height - Y - Height, Width, Height));
 			frame.Apply ();
 		}	
 			
