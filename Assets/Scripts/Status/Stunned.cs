@@ -10,17 +10,21 @@ public class Stunned : Status {
 	
 	public override void StartStatusEffect()
 	{
-		attachedPlayer.CanMove = false;
+		if(attachedEntity is Player)
+			attachedEntity.CanMove = false;
 	}
 	
 	public override void ProcessStatusEffect()
 	{
-		attachedPlayer.gameObject.rigidbody.velocity = new Vector3(0,0,0);
+		if(attachedEntity is Player)
+			attachedEntity.gameObject.rigidbody.velocity = new Vector3(0,0,0);
 	}
 	
 	public override void EndStatusEffect()
 	{
-		attachedPlayer.CanMove = true;
+		if(attachedEntity is Player)
+			attachedEntity.CanMove = true;
+		
 		Destroy(this);
 	}
 }

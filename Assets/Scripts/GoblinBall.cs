@@ -38,7 +38,8 @@ public class GoblinBall : Entity {
 	void Update () {
 		if(!isLocked)
 		{
-			Wander();
+			if(CanMove)
+				Wander();
 		}
 		else
 		{

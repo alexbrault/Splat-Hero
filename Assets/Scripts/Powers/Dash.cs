@@ -45,7 +45,7 @@ public class Dash : Power {
 			if(contact.otherCollider.gameObject.CompareTag("Player") && powerInUse)
 			{
 				Status status = contact.otherCollider.gameObject.AddComponent<Stunned>();
-				status.SetPlayer(contact.otherCollider.gameObject.GetComponent<Player>());
+				status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
 			}
         }
 	}

@@ -21,9 +21,11 @@ public class GameManager : MonoBehaviour {
 		
 		GameObject p1o = (GameObject)Instantiate(player1);
 		p1o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER1;
+		p1o.GetComponent<Player>().SetPowers();
 		
 		GameObject p2o = (GameObject)Instantiate(player2);
 		p2o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER2;
+		p2o.GetComponent<Player>().SetPowers();
 		
 		Entities.Add(p2o);
 		Entities.Add(p1o);

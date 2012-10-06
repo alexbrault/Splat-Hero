@@ -3,8 +3,8 @@ using System.Collections;
 
 public abstract class Status : MonoBehaviour {
 	
-	protected float statusTime = 0;
-	protected Player attachedPlayer = null;
+	public float statusTime = 0;
+	protected Entity attachedEntity = null;
 	
 	bool inCooldown = false;
 	float cooldown = 0;
@@ -25,9 +25,9 @@ public abstract class Status : MonoBehaviour {
 		}
 	}
 	
-	public void SetPlayer(Player player)
+	public void SetEntity(Entity entity)
 	{
-		attachedPlayer = player;
+		attachedEntity = entity;
 		inCooldown = true;
 		
 		StartStatusEffect();

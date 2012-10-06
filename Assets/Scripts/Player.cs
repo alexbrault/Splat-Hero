@@ -23,8 +23,6 @@ public class Player : Entity {
     protected const float HERO_DECELERATION_ACTIVE = 0.5f;
     protected const float HERO_DECELERATION_PASSIVE = 0.3f;
 	
-	public bool CanMove{ get; set; }
-	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -51,10 +49,6 @@ public class Player : Entity {
 		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
 		
 		spritesheet.SetCurrentAnimation("IdleLeft");
-		
-		CanMove = true;
-		Dash dash = gameObject.AddComponent<Dash>();
-		dash.SetPlayer(this);
 
         GameObject mainCamera = GameObject.Find("Main Camera");
         mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
@@ -66,6 +60,24 @@ public class Player : Entity {
 			Move();	
 		
 		base.Update();
+	}
+	
+	public void SetPowers()
+	{
+		if(playerID == PlayerID.PLAYER1)
+		{
+			Power kick = gameObject.AddComponent<SmoothKick>();
+			kick.SetPlayer(this);
+			
+			Power dash = gameObject.AddComponent<Dash>();
+			dash.SetPlayer(this);
+		}
+		
+		else
+		{
+			Power grab = gameObject.AddComponent<Grab>();
+			grab.SetPlayer(this);
+		}
 	}
 	
 	protected void Move()
@@ -148,21 +160,5 @@ public class Player : Entity {
 			else
 				spritesheet.SetCurrentAnimation("IdleRight");
 		}
-	}
-	
-	void OnCollisionEnter(Collision collision)
-	{
-		foreach (ContactPoint contact in collision.contacts) {
-			if(contact.otherCollider.gameObject.CompareTag("Ball"))
-			{
-				GoblinBall ball = (GoblinBall)contact.otherCollider.gameObject.GetComponent("GoblinBall");
-				ball.Lock();
-				
-				Vector3 vect = contact.otherCollider.transform.position - gameObject.transform.position;
-				vect.Normalize();
-				vect *= 50;
-	            contact.otherCollider.rigidbody.AddForce(vect);
-			}
-        }
 	}
 }
