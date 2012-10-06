@@ -4,9 +4,6 @@ using System.Collections.Generic;
 
 public class GameCamera : MonoBehaviour 
 {
-
-    private const int MARKER_POSITION_MOD = 130;
-
     private Entity currentBall;
     private GameObject leftBorder;
     private GameObject rightBorder;
@@ -19,11 +16,19 @@ public class GameCamera : MonoBehaviour
     private GameObject p1Marker;
     private GameObject p2Marker;
 
+    private float resolutionCorrection;
+    private float heroPointerScreenPosX, heroNotVisibleScreenPosX;
+
+
 	// Use this for initialization
 	void Start () 
     {
         leftBorder = GameObject.Find("wallLeft");
         rightBorder = GameObject.Find("wallRight");
+ 
+        resolutionCorrection = transform.camera.aspect * transform.camera.orthographicSize;
+        heroPointerScreenPosX = resolutionCorrection - 5;
+        heroNotVisibleScreenPosX = resolutionCorrection + 5;
 	}
 
     public void SetNewTarget(Entity target)
@@ -47,16 +52,16 @@ public class GameCamera : MonoBehaviour
         float player1PosX = player[0].transform.position.x;
         float player1PosZ = player[0].transform.position.z;
 
-        if (player1PosX >= transform.position.x + MARKER_POSITION_MOD)
+        if (player1PosX >= transform.position.x + heroNotVisibleScreenPosX)
         {
             p1Marker.renderer.enabled = true;
-            p1Marker.transform.position = new Vector3(transform.position.x + MARKER_POSITION_MOD, 0.0f, player1PosZ);
+            p1Marker.transform.position = new Vector3(transform.position.x + heroPointerScreenPosX, 0.0f, player1PosZ);
         }
 
-        else if (player1PosX <= transform.position.x - MARKER_POSITION_MOD)
+        else if (player1PosX <= transform.position.x - heroNotVisibleScreenPosX)
         {
             p1Marker.renderer.enabled = true;
-            p1Marker.transform.position = new Vector3(transform.position.x - MARKER_POSITION_MOD, 0.0f, player1PosZ);
+            p1Marker.transform.position = new Vector3(transform.position.x - heroPointerScreenPosX, 0.0f, player1PosZ);
         }
 
         else
@@ -69,16 +74,16 @@ public class GameCamera : MonoBehaviour
         float player2PosX = player[1].transform.position.x;
         float player2PosZ = player[1].transform.position.z;
 
-        if (player2PosX >= transform.position.x + MARKER_POSITION_MOD)
+        if (player2PosX >= transform.position.x + heroNotVisibleScreenPosX)
         {
             p2Marker.renderer.enabled = true;
-            p2Marker.transform.position = new Vector3(transform.position.x + MARKER_POSITION_MOD, 0.0f, player2PosZ);
+            p2Marker.transform.position = new Vector3(transform.position.x + heroPointerScreenPosX, 0.0f, player2PosZ);
         }
 
-        else if (player2PosX <= transform.position.x - MARKER_POSITION_MOD)
+        else if (player2PosX <= transform.position.x - heroNotVisibleScreenPosX)
         {
             p2Marker.renderer.enabled = true;
-            p2Marker.transform.position = new Vector3(transform.position.x - MARKER_POSITION_MOD, 0.0f, player2PosZ);
+            p2Marker.transform.position = new Vector3(transform.position.x - heroPointerScreenPosX, 0.0f, player2PosZ);
         }
 
         else
