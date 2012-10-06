@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class Spritesheet {
-	
 	GameObject gameobject;
 	Texture2D spritesheet = null;
 	
@@ -31,9 +31,9 @@ public class Spritesheet {
 		return true;
 	}
 	
-	public void CreateAnimation(string name)
+	public void CreateAnimation(string name, int framerate)
 	{
-		SpriteAnimation animation = new SpriteAnimation();
+		SpriteAnimation animation = new SpriteAnimation(framerate);
 		animations.Add(name, animation);
 	}
 	
