@@ -12,4 +12,6 @@ public class SpriteAnimation : IEnumerable {
 	IEnumerator IEnumerable.GetEnumerator() {
 		return frames.GetEnumerator();
 	}
+	
+	public AnimationFrame CurrentFrame { get{ return frames[0]; } }
 }
