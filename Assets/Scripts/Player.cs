@@ -2,7 +2,12 @@ using UnityEngine;
 using System.Collections;
 
 public class Player : Entity {
-		
+	
+	protected const float MAX_HERO_SPEED = 30.0f;
+    protected const float HERO_ACCELERATION = 6.0f;
+    protected const float HERO_DECELERATION_ACTIVE = 0.5f;
+    protected const float HERO_DECELERATION_PASSIVE = 0.3f;
+	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -21,30 +26,40 @@ public class Player : Entity {
 
         Vector3 actualForce = gameObject.rigidbody.velocity;
 
-        if(xMovement == 0)
-            gameObject.rigidbody.AddForce(new Vector3(-actualForce.x / 3, 0, zMovement));
-
-        if (xMovement * actualForce.x < 0.0f)
+        if (xMovement == 0)
         {
-            gameObject.rigidbody.AddForce(new Vector3(-actualForce.x/2, 0, zMovement));
+            gameObject.rigidbody.AddForce(new Vector3(-actualForce.x * HERO_DECELERATION_PASSIVE, 0, 0));
+        } else if (xMovement * actualForce.x < 0.0f)
+        {
+            gameObject.rigidbody.AddForce(new Vector3(-actualForce.x * HERO_DECELERATION_ACTIVE, 0, 0));
         }
 
         if (zMovement == 0)
-            gameObject.rigidbody.AddForce(new Vector3(0, 0, -actualForce.z / 3));
-
-        if (zMovement * actualForce.z < 0.0f)
         {
-            gameObject.rigidbody.AddForce(new Vector3(0, 0, -actualForce.z / 2));
+            gameObject.rigidbody.AddForce(new Vector3(0, 0, -actualForce.z * HERO_DECELERATION_PASSIVE));
+        }else if (zMovement * actualForce.z < 0.0f)
+        {
+            gameObject.rigidbody.AddForce(new Vector3(0, 0, -actualForce.z * HERO_DECELERATION_ACTIVE));
         }
 
         actualForce = gameObject.rigidbody.velocity;
 
-        if (actualForce.x > 30.0f) xMovement = 30.0f - actualForce.x;
-        if (actualForce.x < -30.0f) xMovement = -30.0f - actualForce.x;
+        if (actualForce.x > MAX_HERO_SPEED)
+        { 
+            xMovement = MAX_HERO_SPEED - actualForce.x;
+        }else if (actualForce.x < -MAX_HERO_SPEED) 
+        {
+            xMovement = -MAX_HERO_SPEED - actualForce.x;
+        }
 
-        if (actualForce.z > 30.0f) zMovement = 30.0f - actualForce.z;
-        if (actualForce.z < -30.0f) zMovement = -30.0f - actualForce.z;
+        if (actualForce.z > MAX_HERO_SPEED)
+        {
+            zMovement = MAX_HERO_SPEED - actualForce.z;
+        } else if (actualForce.z < -MAX_HERO_SPEED)
+        {
+            zMovement = -MAX_HERO_SPEED - actualForce.z;
+        }
 
-        gameObject.rigidbody.AddForce(new Vector3(6*xMovement, 0, 6*zMovement));
+        gameObject.rigidbody.AddForce(new Vector3(HERO_ACCELERATION * xMovement, 0, HERO_ACCELERATION * zMovement));
 	}
 }
