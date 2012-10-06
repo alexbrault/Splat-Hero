@@ -3,6 +3,14 @@ using System.Collections;
 
 public class Player : Entity {
 	
+	enum PlayerID
+	{
+		PLAYER1,
+		PLAYER2
+	};
+	
+	public PlayerID playerID { get; set; }
+	
 	protected const float MAX_HERO_SPEED = 40.0f;
     protected const float HERO_ACCELERATION = 6.0f;
     protected const float HERO_DECELERATION_ACTIVE = 0.5f;

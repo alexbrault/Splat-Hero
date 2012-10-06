@@ -9,11 +9,20 @@ public class GameManager : MonoBehaviour {
 	
 	public GameObject goblinBall;
 	public GameObject player1;
+	public GameObject player2;
 	
 	// Use this for initialization
 	void Start () {
 		Entities.Add((GameObject)Instantiate(goblinBall));
-		Entities.Add((GameObject)Instantiate(player1));
+		
+		GameObject p1o = (GameObject)Instantiate(player1);
+		(Player)(p1o.GetComponent("Player")).playerID = Player.PlayerID.PLAYER1;
+		
+		GameObject p2o = (GameObject)Instantiate(player2);
+		(Player)(p2o.GetComponent("Player")).playerID = Player.PlayerID.PLAYER2;
+		
+		Entities.Add(p2o);
+		Entities.Add(p1o);
 	}
 	
 	// Update is called once per frame
