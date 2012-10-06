@@ -27,7 +27,7 @@ public class Spritesheet {
 		if(spritesheet == null)
 			return false;
 		
-		gameobject.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		gameobject.renderer.material.shader = Shader.Find("Unlit/Transparent");
 		return true;
 	}
 	

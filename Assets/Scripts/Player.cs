@@ -11,6 +11,12 @@ public class Player : Entity {
 	// Use this for initialization
 	void Start () {
 		base.Start();
+		
+		spritesheet = new Spritesheet(gameObject);
+		spritesheet.Load("Sprites/ironman2");
+		spritesheet.CreateAnimation("Patrick", 300);
+		spritesheet.AddFrame("Patrick", 48, 0, 16, 16);
+		spritesheet.SetCurrentAnimation("Patrick");
 	}
 	
 	// Update is called once per frame
@@ -61,5 +67,15 @@ public class Player : Entity {
         }
 
         gameObject.rigidbody.AddForce(new Vector3(HERO_ACCELERATION * xMovement, 0, HERO_ACCELERATION * zMovement));
+	}
+	
+	void OnCollisionEnter(Collision collision)
+	{
+		foreach (ContactPoint contact in collision.contacts) {
+			Vector3 vect = gameObject.transform.position - contact.point;
+			vect.Normalize();
+			vect *= 25;
+            gameObject.rigidbody.AddForce(vect);
+        }
 	}
 }

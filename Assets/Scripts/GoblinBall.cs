@@ -13,6 +13,15 @@ public class GoblinBall : Entity {
 	// Use this for initialization
 	void Start () {
 		base.Start();
+		
+		spritesheet = new Spritesheet(gameObject);
+		spritesheet.Load("Sprites/martian");
+		spritesheet.CreateAnimation("Patrick", 300);
+		spritesheet.AddFrame("Patrick", 0, 0, 16, 16);
+		spritesheet.AddFrame("Patrick", 0, 16, 16, 16);
+		spritesheet.AddFrame("Patrick", 0, 32, 16, 16);
+		spritesheet.AddFrame("Patrick", 0, 48, 16, 16);
+		spritesheet.SetCurrentAnimation("Patrick");
 	}
 	
 	// Update is called once per frame
