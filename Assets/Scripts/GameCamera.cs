@@ -24,10 +24,9 @@ public class GameCamera : MonoBehaviour
     {
         if (currentBall != null)
         {
-            float currentBallPosX = currentBall.transform.position.x;
+            float currentBallPosX = currentBall.transform.position.x*0.6f;
 
-            if( currentBallPosX > (leftBorder.transform.position.x + 120) && currentBallPosX < (rightBorder.transform.position.x - 120) )
-                transform.position = new Vector3(currentBallPosX, transform.transform.position.y, transform.position.z);
+            transform.position = new Vector3(currentBallPosX, transform.transform.position.y, transform.position.z);
         }	
 	}
 }
