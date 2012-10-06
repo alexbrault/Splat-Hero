@@ -21,6 +21,16 @@ public class GoblinBall : Entity {
 		base.Update();
 	}
 	
+	void OnCollisionEnter(Collision collision)
+	{
+		foreach (ContactPoint contact in collision.contacts) {
+			Vector3 vect = gameObject.transform.position - contact.point;
+			vect.Normalize();
+			vect *= 25;
+            gameObject.rigidbody.AddForce(vect);
+        }
+	}
+	
 	void Wander()
 	{
 		wanderTheta += Random.Range(-change, change);
