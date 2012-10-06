@@ -22,13 +22,12 @@ public class Spritesheet {
 	
 	public bool Load(string sprite)
 	{
-        //gameobject = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		spritesheet = (Texture2D)Resources.Load(sprite);
 		
 		if(spritesheet == null)
 			return false;
 		
-		
+		gameobject.renderer.material.shader = Shader.Find("Transparent/Diffuse");
 		return true;
 	}
 	
