@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class Spritesheet {
-	
 	GameObject gameobject;
 	Texture2D spritesheet = null;
 	
@@ -14,9 +14,8 @@ public class Spritesheet {
 	{
 	}
 	
-	public void Render(float x, float z)
+	public void Render()
 	{
-		gameobject.transform.position = new Vector3(x, 0, z);
 		gameobject.renderer.material.mainTexture = activeAnimation.CurrentFrame.GetFrame(spritesheet);
 	}
 	
@@ -28,13 +27,13 @@ public class Spritesheet {
 		if(spritesheet == null)
 			return false;
 		
-		gameobject.renderer.material.shader = Shader.Find("Transparent/Diffuse");
+		
 		return true;
 	}
 	
-	public void CreateAnimation(string name)
+	public void CreateAnimation(string name, int framerate)
 	{
-		SpriteAnimation animation = new SpriteAnimation();
+		SpriteAnimation animation = new SpriteAnimation(framerate);
 		animations.Add(name, animation);
 	}
 	
