@@ -10,6 +10,9 @@ public class GoblinBall : Entity {
 	public float change = 0.25f;
 	public float maxspeed = 20;
 	
+	bool isLocked = false;	
+	float lockedTime = 0;
+	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -26,18 +29,38 @@ public class GoblinBall : Entity {
 	
 	// Update is called once per frame
 	void Update () {
-		Wander();
+		if(!isLocked)
+		{
+			Wander();
+		}
+		else
+		{
+			lockedTime += Time.deltaTime;
+			
+			if(lockedTime > 1)
+				isLocked = false;
+		}
+		
 		base.Update();
+	}
+	
+	public void Lock()
+	{
+		lockedTime = 0;
+		isLocked = true;
 	}
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		foreach (ContactPoint contact in collision.contacts) {
-			Vector3 vect = gameObject.transform.position - contact.point;
-			vect.Normalize();
-			vect *= 25;
-            gameObject.rigidbody.AddForce(vect);
-        }
+		if(!isLocked)
+		{
+			foreach (ContactPoint contact in collision.contacts) {
+				Vector3 vect = gameObject.transform.position - contact.point;
+				vect.Normalize();
+				vect *= 25;
+	            gameObject.rigidbody.AddForce(vect);
+	        }
+		}
 	}
 	
 	void Wander()

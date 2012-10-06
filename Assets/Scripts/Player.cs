@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : Entity {
 	
-	protected const float MAX_HERO_SPEED = 30.0f;
+	protected const float MAX_HERO_SPEED = 40.0f;
     protected const float HERO_ACCELERATION = 6.0f;
     protected const float HERO_DECELERATION_ACTIVE = 0.5f;
     protected const float HERO_DECELERATION_PASSIVE = 0.3f;
@@ -72,10 +72,16 @@ public class Player : Entity {
 	void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts) {
-			Vector3 vect = gameObject.transform.position - contact.point;
-			vect.Normalize();
-			vect *= 25;
-            gameObject.rigidbody.AddForce(vect);
+			if(contact.otherCollider.gameObject.CompareTag("Ball"))
+			{
+				GoblinBall ball = (GoblinBall)contact.otherCollider.gameObject.GetComponent("GoblinBall");
+				ball.Lock();
+				
+				Vector3 vect = contact.otherCollider.transform.position - gameObject.transform.position;
+				vect.Normalize();
+				vect *= 50;
+	            contact.otherCollider.rigidbody.AddForce(vect);
+			}
         }
 	}
 }
