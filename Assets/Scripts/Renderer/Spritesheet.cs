@@ -4,14 +4,15 @@ using System.Collections.Generic;
 
 
 public class Spritesheet {
-	GameObject gameobject;
+    GameObject gameobject;
 	Texture2D spritesheet = null;
 	
 	Dictionary<string, SpriteAnimation> animations = new Dictionary<string, SpriteAnimation>();
 	SpriteAnimation activeAnimation = null;
 	
-	public Spritesheet()
+	public Spritesheet(GameObject o)
 	{
+        gameobject = o;
 	}
 	
 	public void Render()
@@ -21,7 +22,7 @@ public class Spritesheet {
 	
 	public bool Load(string sprite)
 	{
-		gameobject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+        //gameobject = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		spritesheet = (Texture2D)Resources.Load(sprite);
 		
 		if(spritesheet == null)
