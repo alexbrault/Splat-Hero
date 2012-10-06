@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Entities.Add((GameObject)Instantiate(goblinBall));
-		//Entities.Add((GameObject)Instantiate(player1));
+		Entities.Add((GameObject)Instantiate(player1));
 	}
 	
 	// Update is called once per frame

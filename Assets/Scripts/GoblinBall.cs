@@ -13,6 +13,8 @@ public class GoblinBall : Entity {
 	bool isLocked = false;	
 	float lockedTime = 0;
 	
+	GameManager gameManager;
+	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -25,6 +27,8 @@ public class GoblinBall : Entity {
 		spritesheet.AddFrame("Patrick", 0, 32, 16, 16);
 		spritesheet.AddFrame("Patrick", 0, 48, 16, 16);
 		spritesheet.SetCurrentAnimation("Patrick");
+		
+		gameManager = (GameManager)GameObject.Find("GameManager").GetComponent("GameManager");
 	}
 	
 	// Update is called once per frame
@@ -73,9 +77,31 @@ public class GoblinBall : Entity {
 		circleLocation += gameObject.transform.position;
 		
 		Vector3 circleOffset = new Vector3(wanderRadius * Mathf.Cos(wanderTheta), 0, wanderRadius * Mathf.Sin(wanderTheta));
-		Vector3 target = circleLocation + circleOffset;
+		Vector3 fleeForce = Flee();
 		
+		Vector3 target = circleLocation + circleOffset + fleeForce;
 		gameObject.rigidbody.AddForce(Steer(target));
+	}
+	
+	Vector3 Flee()
+	{
+		Vector3 fleeForce = new Vector3(0,0,0);
+		
+		foreach(GameObject entity in gameManager.Entities)
+		{
+			if(entity.CompareTag("Player"))
+			{
+				Vector3 distanceVector = gameObject.transform.position - entity.transform.position;
+				float distance = distanceVector.magnitude;
+				
+				if(distance < 25)
+				{
+					fleeForce += distanceVector;
+				}
+			}
+		}
+		
+		return fleeForce;
 	}
 	
 	Vector3 Steer(Vector3 target)
