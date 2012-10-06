@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Player : Entity {
 	
-	enum PlayerID
+	public enum PlayerID
 	{
 		PLAYER1,
 		PLAYER2

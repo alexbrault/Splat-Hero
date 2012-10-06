@@ -16,10 +16,10 @@ public class GameManager : MonoBehaviour {
 		Entities.Add((GameObject)Instantiate(goblinBall));
 		
 		GameObject p1o = (GameObject)Instantiate(player1);
-		(Player)(p1o.GetComponent("Player")).playerID = Player.PlayerID.PLAYER1;
+		p1o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER1;
 		
 		GameObject p2o = (GameObject)Instantiate(player2);
-		(Player)(p2o.GetComponent("Player")).playerID = Player.PlayerID.PLAYER2;
+		p2o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER2;
 		
 		Entities.Add(p2o);
 		Entities.Add(p1o);
