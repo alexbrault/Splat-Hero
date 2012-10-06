@@ -23,6 +23,8 @@ public class Player : Entity {
     protected const float HERO_DECELERATION_ACTIVE = 0.5f;
     protected const float HERO_DECELERATION_PASSIVE = 0.3f;
 	
+	public bool CanMove{ get; set; }
+	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -49,11 +51,17 @@ public class Player : Entity {
 		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
 		
 		spritesheet.SetCurrentAnimation("IdleLeft");
+		
+		CanMove = true;
+		Dash dash = gameObject.AddComponent<Dash>();
+		dash.SetPlayer(this);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Move();		
+		if(CanMove)
+			Move();	
+		
 		base.Update();
 	}
 	
