@@ -31,6 +31,12 @@ public class Spritesheet {
 		return true;
 	}
 	
+	public void Reset() {
+		foreach (SpriteAnimation a in animations.Values) {
+			a.Reset();
+		}
+	}
+	
 	public void CreateAnimation(string name, int framerate)
 	{
 		SpriteAnimation animation = new SpriteAnimation(framerate);
@@ -55,5 +61,15 @@ public class Spritesheet {
 	{
 		if(animations.ContainsKey(animation))
 			activeAnimation = animations[animation];
+	}
+	
+	public SpriteAnimation this[string anim] {
+		get {
+			if (animations.ContainsKey(anim)) {
+				return animations[anim];
+			}
+			
+			return null;
+		}
 	}
 }

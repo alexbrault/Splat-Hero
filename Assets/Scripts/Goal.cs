@@ -17,6 +17,7 @@ public class Goal : MonoBehaviour {
 			label.text = Score.ToString();
 			GameManager.Instance.DestroyObject(candidate.gameObject);
 			GameManager.Instance.NewBall();
+			SplatterShower.Instance.ShowSplatter();
 		}
 	}
 }

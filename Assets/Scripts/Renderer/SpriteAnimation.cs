@@ -11,6 +11,9 @@ public class SpriteAnimation : IEnumerable
 	private float rawFrame = 0;
 	private int currentFrameIndex = 0;
 	
+	public delegate void AnimationCompletedDelegate();
+	public event AnimationCompletedDelegate AnimationCompleted;
+	
 	public SpriteAnimation(int framerate) {
 		FrameRate = framerate;
 	}
@@ -25,6 +28,11 @@ public class SpriteAnimation : IEnumerable
 		return frames.GetEnumerator ();
 	}
 	
+	public void Reset() {
+		rawFrame = 0;
+		currentFrameIndex = 0;
+	}
+	
 	public AnimationFrame CurrentFrame {
 		get {
 			rawFrame += Time.deltaTime * 1000;
@@ -33,6 +41,12 @@ public class SpriteAnimation : IEnumerable
 			{
 				rawFrame -= FrameRate;
 				currentFrameIndex = (currentFrameIndex + 1) % frames.Count;
+				if (currentFrameIndex == 0) {
+					AnimationCompletedDelegate d = AnimationCompleted;
+					if (d != null) {
+						d();
+					}
+				}
 			}
 			
 			return frames [currentFrameIndex];
