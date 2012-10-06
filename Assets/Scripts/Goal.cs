@@ -12,7 +12,7 @@ public class Goal : MonoBehaviour {
 	
 	private void OnCollisionEnter(Collision other) {
 		GoblinBall candidate = other.gameObject.GetComponent<GoblinBall>();
-		if (candidate != null) {
+		if (candidate != null && candidate.isLocked) {
 			Score++;
 			label.text = Score.ToString();
 			GameManager.Instance.DestroyObject(candidate.gameObject);

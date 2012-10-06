@@ -10,7 +10,7 @@ public class GoblinBall : Entity {
 	public float change = 0.25f;
 	public float maxspeed = 20;
 	
-	bool isLocked = false;	
+	public bool isLocked = false;	
 	float lockedTime = 0;
 	
 	GameManager gameManager;
