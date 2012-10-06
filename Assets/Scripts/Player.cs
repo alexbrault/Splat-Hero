@@ -3,15 +3,7 @@ using System.Collections;
 
 public class Player : Entity {
 	
-	public enum PlayerID
-	{
-		PLAYER1,
-		PLAYER2
-	};
-	
-	public PlayerID playerID { get; set; }
-	
-	protected const float MAX_HERO_SPEED = 40.0f;
+	protected const float MAX_HERO_SPEED = 30.0f;
     protected const float HERO_ACCELERATION = 6.0f;
     protected const float HERO_DECELERATION_ACTIVE = 0.5f;
     protected const float HERO_DECELERATION_PASSIVE = 0.3f;
@@ -21,12 +13,9 @@ public class Player : Entity {
 		base.Start();
 		
 		spritesheet = new Spritesheet(gameObject);
-		spritesheet.Load("Sprites/ironMan");
+		spritesheet.Load("Sprites/ironman2");
 		spritesheet.CreateAnimation("Patrick", 300);
-		spritesheet.AddFrame("Patrick", 0, 0, 32, 32);
-		spritesheet.AddFrame("Patrick", 0, 32, 32, 32);
-		spritesheet.AddFrame("Patrick", 0, 64, 32, 32);
-		spritesheet.AddFrame("Patrick", 0, 96, 32, 32);
+		spritesheet.AddFrame("Patrick", 48, 0, 16, 16);
 		spritesheet.SetCurrentAnimation("Patrick");
 	}
 	
@@ -38,20 +27,8 @@ public class Player : Entity {
 	
 	protected void Move()
 	{
-		float xMovement = 0.0f;
-		float zMovement = 0.0f;
-		
-		if(playerID == PlayerID.PLAYER1)
-		{
-			xMovement = -Input.GetAxisRaw("Player1_MoveX");
-			zMovement = -Input.GetAxisRaw("Player1_MoveZ");
-		}
-		
-		else if(playerID == PlayerID.PLAYER2)
-		{
-			xMovement = -Input.GetAxisRaw("Player2_MoveX");
-			zMovement = -Input.GetAxisRaw("Player2_MoveZ");
-		}
+		float xMovement = -Input.GetAxisRaw("Player1_MoveX");
+		float zMovement = -Input.GetAxisRaw("Player1_MoveZ");
 
         Vector3 actualForce = gameObject.rigidbody.velocity;
 
@@ -95,16 +72,10 @@ public class Player : Entity {
 	void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts) {
-			if(contact.otherCollider.gameObject.CompareTag("Ball"))
-			{
-				GoblinBall ball = (GoblinBall)contact.otherCollider.gameObject.GetComponent("GoblinBall");
-				ball.Lock();
-				
-				Vector3 vect = contact.otherCollider.transform.position - gameObject.transform.position;
-				vect.Normalize();
-				vect *= 50;
-	            contact.otherCollider.rigidbody.AddForce(vect);
-			}
+			Vector3 vect = gameObject.transform.position - contact.point;
+			vect.Normalize();
+			vect *= 25;
+            gameObject.rigidbody.AddForce(vect);
         }
 	}
 }
