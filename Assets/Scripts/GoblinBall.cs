@@ -10,6 +10,11 @@ public class GoblinBall : Entity {
 	public float change = 0.25f;
 	public float maxspeed = 20;
 	
+	bool isLocked = false;	
+	float lockedTime = 0;
+	
+	GameManager gameManager;
+	
 	// Use this for initialization
 	void Start () {
 		base.Start();
@@ -25,22 +30,44 @@ public class GoblinBall : Entity {
 
         GameObject mainCamera = GameObject.Find("Main Camera");
         mainCamera.GetComponent<GameCamera>().SetNewTarget(this);
+		
+		gameManager = GameManager.Instance.GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Wander();
+		if(!isLocked)
+		{
+			Wander();
+		}
+		else
+		{
+			lockedTime += Time.deltaTime;
+			
+			if(lockedTime > 1)
+				isLocked = false;
+		}
+		
 		base.Update();
+	}
+	
+	public void Lock()
+	{
+		lockedTime = 0;
+		isLocked = true;
 	}
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		foreach (ContactPoint contact in collision.contacts) {
-			Vector3 vect = gameObject.transform.position - contact.point;
-			vect.Normalize();
-			vect *= 25;
-            gameObject.rigidbody.AddForce(vect);
-        }
+		if(!isLocked)
+		{
+			foreach (ContactPoint contact in collision.contacts) {
+				Vector3 vect = gameObject.transform.position - contact.point;
+				vect.Normalize();
+				vect *= 25;
+	            gameObject.rigidbody.AddForce(vect);
+	        }
+		}
 	}
 	
 	void Wander()
@@ -53,9 +80,31 @@ public class GoblinBall : Entity {
 		circleLocation += gameObject.transform.position;
 		
 		Vector3 circleOffset = new Vector3(wanderRadius * Mathf.Cos(wanderTheta), 0, wanderRadius * Mathf.Sin(wanderTheta));
-		Vector3 target = circleLocation + circleOffset;
+		Vector3 fleeForce = Flee();
 		
+		Vector3 target = circleLocation + circleOffset + fleeForce;
 		gameObject.rigidbody.AddForce(Steer(target));
+	}
+	
+	Vector3 Flee()
+	{
+		Vector3 fleeForce = new Vector3(0,0,0);
+		
+		foreach(GameObject entity in gameManager.Entities)
+		{
+			if(entity.CompareTag("Player"))
+			{
+				Vector3 distanceVector = gameObject.transform.position - entity.transform.position;
+				float distance = distanceVector.magnitude;
+				
+				if(distance < 25)
+				{
+					fleeForce += distanceVector;
+				}
+			}
+		}
+		
+		return fleeForce;
 	}
 	
 	Vector3 Steer(Vector3 target)

@@ -3,7 +3,22 @@ using System.Collections;
 
 public class Player : Entity {
 	
-	protected const float MAX_HERO_SPEED = 30.0f;
+	public enum PlayerID
+	{
+		PLAYER1,
+		PLAYER2
+	};
+	
+	public enum Facing
+	{
+		LEFT,
+		RIGHT
+	}
+	
+	public PlayerID playerID { get; set; }
+	Facing facing = Facing.LEFT;
+	
+	protected const float MAX_HERO_SPEED = 40.0f;
     protected const float HERO_ACCELERATION = 6.0f;
     protected const float HERO_DECELERATION_ACTIVE = 0.5f;
     protected const float HERO_DECELERATION_PASSIVE = 0.3f;
@@ -13,22 +28,53 @@ public class Player : Entity {
 		base.Start();
 		
 		spritesheet = new Spritesheet(gameObject);
-		spritesheet.Load("Sprites/ironman2");
-		spritesheet.CreateAnimation("Patrick", 300);
-		spritesheet.AddFrame("Patrick", 48, 0, 16, 16);
-		spritesheet.SetCurrentAnimation("Patrick");
+		spritesheet.Load("Sprites/ironMan");
+		
+		spritesheet.CreateAnimation("RunLeft", 300);
+		spritesheet.AddFrame("RunLeft", 0, 0, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 32, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 64, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("RunRight", 300);
+		spritesheet.AddFrame("RunRight", 32, 0, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 32, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 64, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("IdleLeft", 0);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 32);
+		
+		spritesheet.CreateAnimation("IdleRight", 0);
+		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
+		
+		spritesheet.SetCurrentAnimation("IdleLeft");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Move();
+		Move();		
 		base.Update();
 	}
 	
 	protected void Move()
 	{
-		float xMovement = -Input.GetAxisRaw("Player1_MoveX");
-		float zMovement = -Input.GetAxisRaw("Player1_MoveZ");
+		float xMovement = 0.0f;
+		float zMovement = 0.0f;
+		
+		if(playerID == PlayerID.PLAYER1)
+		{
+			xMovement = -Input.GetAxisRaw("Player1_MoveX");
+			zMovement = -Input.GetAxisRaw("Player1_MoveZ");
+		}
+		
+		else if(playerID == PlayerID.PLAYER2)
+		{
+			xMovement = -Input.GetAxisRaw("Player2_MoveX");
+			zMovement = -Input.GetAxisRaw("Player2_MoveZ");
+		}
+		
+		SetAnimation(xMovement);
 
         Vector3 actualForce = gameObject.rigidbody.velocity;
 
@@ -69,13 +115,43 @@ public class Player : Entity {
         gameObject.rigidbody.AddForce(new Vector3(HERO_ACCELERATION * xMovement, 0, HERO_ACCELERATION * zMovement));
 	}
 	
+	void SetAnimation(float xMovement)
+	{
+		if(xMovement > 0)
+		{
+			facing = Facing.LEFT;
+			spritesheet.SetCurrentAnimation("RunLeft");
+		}
+		
+		else if(xMovement < 0)
+		{
+			facing = Facing.RIGHT;
+			spritesheet.SetCurrentAnimation("RunRight");
+		}
+		
+		else
+		{
+			if(facing == Facing.LEFT)
+				spritesheet.SetCurrentAnimation("IdleLeft");
+			
+			else
+				spritesheet.SetCurrentAnimation("IdleRight");
+		}
+	}
+	
 	void OnCollisionEnter(Collision collision)
 	{
 		foreach (ContactPoint contact in collision.contacts) {
-			Vector3 vect = gameObject.transform.position - contact.point;
-			vect.Normalize();
-			vect *= 25;
-            gameObject.rigidbody.AddForce(vect);
+			if(contact.otherCollider.gameObject.CompareTag("Ball"))
+			{
+				GoblinBall ball = (GoblinBall)contact.otherCollider.gameObject.GetComponent("GoblinBall");
+				ball.Lock();
+				
+				Vector3 vect = contact.otherCollider.transform.position - gameObject.transform.position;
+				vect.Normalize();
+				vect *= 50;
+	            contact.otherCollider.rigidbody.AddForce(vect);
+			}
         }
 	}
 }
