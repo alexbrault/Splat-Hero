@@ -55,6 +55,9 @@ public class Player : Entity {
 		CanMove = true;
 		Dash dash = gameObject.AddComponent<Dash>();
 		dash.SetPlayer(this);
+
+        GameObject mainCamera = GameObject.Find("Main Camera");
+        mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
 	}
 	
 	// Update is called once per frame
