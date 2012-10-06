@@ -11,9 +11,13 @@ public class GameManager : MonoBehaviour {
 	public GameObject player1;
 	public GameObject player2;
 	
+	public static GameManager Instance { get; private set; }
+	
 	// Use this for initialization
 	void Start () {
-		Entities.Add((GameObject)Instantiate(goblinBall));
+		if (Instance == null) {
+			Instance = this;
+		}
 		
 		GameObject p1o = (GameObject)Instantiate(player1);
 		p1o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER1;
@@ -23,10 +27,22 @@ public class GameManager : MonoBehaviour {
 		
 		Entities.Add(p2o);
 		Entities.Add(p1o);
+		
+		NewBall ();
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	public void DestroyObject(GameObject o) {
+		Entities.Remove(o);
+		Destroy (o);
+	}
 	
+	public void NewBall() {
+		Entities.Add((GameObject)Instantiate(goblinBall));
+	}
+	
+	void OnDestroy() {
+		if (Instance == this) {
+			Instance = null;
+		}
 	}
 }
