@@ -26,10 +26,12 @@ public class Player : Entity {
 	public PlayerID playerID = PlayerID.PLAYER1;
 	public Facing facing = Facing.LEFT;
 	
-	protected const float MAX_HERO_SPEED = 40.0f;
-    protected const float HERO_ACCELERATION = 6.0f;
-    protected const float HERO_DECELERATION_ACTIVE = 0.5f;
-    protected const float HERO_DECELERATION_PASSIVE = 0.3f;
+	protected float MAX_HERO_SPEED = 40.0f;
+    protected float HERO_ACCELERATION = 6.0f;
+    protected float HERO_DECELERATION_ACTIVE = 0.5f;
+    protected float HERO_DECELERATION_PASSIVE = 0.3f;
+	
+	public bool manageAnimation = true;
 	
 	// Use this for initialization
 	void Start () {
@@ -75,6 +77,10 @@ public class Player : Entity {
 		
 		spritesheet.SetCurrentAnimation("IdleLeft");
 		
+		// Stats
+		MAX_HERO_SPEED = 70;
+		HERO_ACCELERATION = 8.0f;
+		
 		// Powers
 		Power kick = gameObject.AddComponent<SmoothKick>();
 		kick.SetPlayer(this);
@@ -100,13 +106,35 @@ public class Player : Entity {
 		spritesheet.AddFrame("RunRight", 48, 128, 48, 64);
 		spritesheet.AddFrame("RunRight", 48, 192, 48, 64);
 		
+		spritesheet.CreateAnimation("GrabLeft", 300);
+		spritesheet.AddFrame("GrabLeft", 144, 0, 48, 64);
+		spritesheet.AddFrame("GrabLeft", 144, 64, 48, 64);
+		spritesheet.AddFrame("GrabLeft", 144, 128, 48, 64);
+		spritesheet.AddFrame("GrabLeft", 144, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("GrabRight", 300);
+		spritesheet.AddFrame("GrabRight", 96, 0, 48, 64);
+		spritesheet.AddFrame("GrabRight", 96, 64, 48, 64);
+		spritesheet.AddFrame("GrabRight", 96, 128, 48, 64);
+		spritesheet.AddFrame("GrabRight", 96, 192, 48, 64);
+		
 		spritesheet.CreateAnimation("IdleLeft", 0);
 		spritesheet.AddFrame("IdleLeft", 0, 0, 48, 64);
 		
 		spritesheet.CreateAnimation("IdleRight", 0);
 		spritesheet.AddFrame("IdleRight", 48, 0, 48, 64);
 		
+		spritesheet.CreateAnimation("IdleGrabLeft", 0);
+		spritesheet.AddFrame("IdleGrabRight", 144, 0, 48, 64);
+		
+		spritesheet.CreateAnimation("IdleGrabRight", 0);
+		spritesheet.AddFrame("IdleGrabLeft", 96, 0, 48, 64);		
+		
 		spritesheet.SetCurrentAnimation("IdleLeft");
+		
+		// Stats
+		MAX_HERO_SPEED = 40.0f;
+    	HERO_ACCELERATION = 6.0f;
 		
 		// Powers
 		Power grab = gameObject.AddComponent<Grab>();
@@ -187,25 +215,28 @@ public class Player : Entity {
 	
 	void SetAnimation(float xMovement)
 	{
-		if(xMovement > 0)
+		if(manageAnimation)
 		{
-			facing = Facing.LEFT;
-			spritesheet.SetCurrentAnimation("RunLeft");
-		}
-		
-		else if(xMovement < 0)
-		{
-			facing = Facing.RIGHT;
-			spritesheet.SetCurrentAnimation("RunRight");
-		}
-		
-		else
-		{
-			if(facing == Facing.LEFT)
-				spritesheet.SetCurrentAnimation("IdleLeft");
+			if(xMovement > 0)
+			{
+				facing = Facing.LEFT;
+				spritesheet.SetCurrentAnimation("RunLeft");
+			}
+			
+			else if(xMovement < 0)
+			{
+				facing = Facing.RIGHT;
+				spritesheet.SetCurrentAnimation("RunRight");
+			}
 			
 			else
-				spritesheet.SetCurrentAnimation("IdleRight");
+			{
+				if(facing == Facing.LEFT)
+					spritesheet.SetCurrentAnimation("IdleLeft");
+				
+				else
+					spritesheet.SetCurrentAnimation("IdleRight");
+			}
 		}
 	}
 	

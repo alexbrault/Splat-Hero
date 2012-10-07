@@ -15,6 +15,8 @@ public class Grab : Power {
 			powerCooldown = 1.0f;
 			cooldown = 0;
 			
+			grabbedEntity.renderer.enabled = true;
+			attachedPlayer.manageAnimation = true;
 			grabbedEntity.GetComponent<Grabbed>().EndStatusEffect();
 			grabbedEntity = null;
 		}
@@ -49,6 +51,23 @@ public class Grab : Power {
 	
 	public override void ProcessPower()
 	{
+		if(grabbedEntity != null)
+		{
+			float xMovement = 0.0f;
+			
+			if(attachedPlayer.playerID == Player.PlayerID.PLAYER1)
+				xMovement = -Input.GetAxis("Player1_MoveX");
+			
+			else if(attachedPlayer.playerID == Player.PlayerID.PLAYER2)
+				xMovement = -Input.GetAxis("Player2_MoveX");
+			
+			if(xMovement < 0)
+				attachedPlayer.PlayAnimation("GrabLeft");
+			
+			else if(xMovement > 0)
+				attachedPlayer.PlayAnimation("GrabRight");
+		}
+		
 		if(!powerInUse && powerInCooldown)
 		{
 			if( attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && grabbedEntity != null ||
@@ -62,6 +81,8 @@ public class Grab : Power {
 				
 				gameObject.GetComponent<Entity>().DelayIgnoreCollision(gameObject.collider, grabbedEntity.collider, 1, false);
 				
+				grabbedEntity.renderer.enabled = true;
+				attachedPlayer.manageAnimation = true;
 				grabbedEntity.rigidbody.velocity = new Vector3(0,0,0);
 				grabbedEntity.rigidbody.AddForce(gameObject.transform.position + (shoot * 500));
 				
@@ -111,6 +132,9 @@ public class Grab : Power {
 				
 				grabbedEntity = collision.collider.gameObject;
 				Physics.IgnoreCollision(gameObject.collider, grabbedEntity.collider);
+				
+				grabbedEntity.renderer.enabled = false;
+				attachedPlayer.manageAnimation = false;
 			}
 			
 			else if(collision.collider.gameObject.CompareTag("Player"))
