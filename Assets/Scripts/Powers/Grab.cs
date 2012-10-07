@@ -5,6 +5,21 @@ public class Grab : Power {
 	
 	GameObject grabbedEntity = null;
 	
+	public void Drop()
+	{
+		if(grabbedEntity != null)
+		{
+			ResetPower();
+			powerInCooldown = true;
+			useCooldown = 1.0f;
+			powerCooldown = 1.0f;
+			cooldown = 0;
+			
+			grabbedEntity.GetComponent<Grabbed>().EndStatusEffect();
+			grabbedEntity = null;
+		}
+	}
+	
 	public override void StartPower()
 	{
 		useCooldown = 1.0f;

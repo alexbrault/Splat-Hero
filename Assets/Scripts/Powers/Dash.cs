@@ -50,6 +50,13 @@ public class Dash : Power {
 			{
 				Status status = contact.otherCollider.gameObject.AddComponent<Stunned>();
 				status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
+				
+				Grab grab = contact.otherCollider.gameObject.GetComponent<Grab>();
+				
+				if(grab != null)
+				{
+					grab.Drop();
+				}
 			}
         }
 	}

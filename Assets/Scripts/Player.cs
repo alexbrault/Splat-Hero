@@ -57,7 +57,13 @@ public class Player : Entity {
 	// Update is called once per frame
 	void Update () {
 		if(CanMove)
-			Move();	
+		{
+			Move();
+		
+			Vector3 position = gameObject.transform.position;
+			position.y = 0;
+			gameObject.transform.position = position;
+		}
 		
 		base.Update();
 	}
