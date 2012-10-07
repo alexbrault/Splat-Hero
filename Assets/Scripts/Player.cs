@@ -16,7 +16,7 @@ public class Player : Entity {
 	}
 	
 	public PlayerID playerID { get; set; }
-	Facing facing = Facing.LEFT;
+	public Facing facing = Facing.LEFT;
 	
 	protected const float MAX_HERO_SPEED = 40.0f;
     protected const float HERO_ACCELERATION = 6.0f;

@@ -9,6 +9,10 @@ public class SmoothKick : Power {
 		powerCooldown = 0.0f;
 	}
 	
+	public override void ActivatePower()
+	{
+	}
+	
 	public override void ProcessPower()
 	{
 	}

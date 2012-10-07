@@ -11,7 +11,6 @@ public class Grabbed : Status {
 	public override void StartStatusEffect()
 	{
 		attachedEntity.CanMove = false;
-		gameObject.collider.enabled = false;
 	}
 	
 	public override void ProcessStatusEffect()

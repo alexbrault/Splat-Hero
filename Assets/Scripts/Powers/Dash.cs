@@ -9,7 +9,7 @@ public class Dash : Power {
 		powerCooldown = 3.0f;
 	}
 	
-	public override void ProcessPower()
+	public override void ActivatePower()
 	{
 		if( attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && !powerInCooldown ||
 			attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0 && !powerInCooldown )
@@ -19,6 +19,10 @@ public class Dash : Power {
 			powerInCooldown = true;
 			cooldown = 0;
 		}
+	}
+	
+	public override void ProcessPower()
+	{
 	}
 	
 	public override void UseCooldownCallback()

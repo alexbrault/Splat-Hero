@@ -35,12 +35,21 @@ abstract public class Power : MonoBehaviour {
 				powerInCooldown = false;
 				PowerCooldownCallback();
 			}
+			
+			ProcessPower();
 		}
 	
 		else
 		{
-			ProcessPower();
+			ActivatePower();
 		}
+	}
+	
+	public void ResetPower()
+	{
+		powerInUse = false;
+		powerInCooldown = false;
+		cooldown = 0;
 	}
 	
 	public void SetPlayer(Player player)
@@ -50,6 +59,7 @@ abstract public class Power : MonoBehaviour {
 	}
 	
 	public abstract void StartPower();
+	public abstract void ActivatePower();
 	public abstract void ProcessPower();
 	public abstract void UseCooldownCallback();
 	public abstract void PowerCooldownCallback();
