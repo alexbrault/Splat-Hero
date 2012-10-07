@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Player : Entity {
 	public Power ShownCooldown = new NullPower();
+	public Texture2D Icon;
 	
 	public enum PlayerID
 	{
@@ -105,6 +106,7 @@ public class Player : Entity {
 		Power dash = gameObject.AddComponent<Dash>();
 		dash.SetPlayer(this);
 		
+		Icon = (Texture2D)Resources.Load("Icon/Rironman.icon");
 		ShownCooldown = dash;
 	}
 	
@@ -160,6 +162,7 @@ public class Player : Entity {
 		grab.SetPlayer(this);
 		
 		ShownCooldown = grab;
+		Icon = (Texture2D)Resources.Load("Icon/Truc.icon");
 	}
 	
 	void CreateTurquoiseMage()
@@ -199,6 +202,7 @@ public class Player : Entity {
 		FreezeBall.SetPlayer(this);
 				
 		ShownCooldown = FreezeBall;
+		Icon = (Texture2D)Resources.Load("Icon/Turquoise.icon");
 	}
 	
 	// Update is called once per frame

@@ -4,10 +4,6 @@ using System.Collections;
 public class HUD : MonoBehaviour
 {
 	public Texture2D HUDBackground;
-	public Texture2D Player1_Active;
-	public Texture2D Player1_Bench;
-	public Texture2D Player2_Active;
-	public Texture2D Player2_Bench;
 	public Font TimerFont;
 	private float scale;
 	private Texture2D activeBar;
@@ -46,14 +42,14 @@ public class HUD : MonoBehaviour
 		
 		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.width / 10), HUDBackground);
 		ScalableRect r = new ScalableRect (220, 0, 38, 38);
-		GUI.DrawTexture (r * scale, Player1_Bench, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (r * scale, GameManager.Instance.Players[1].Icon, ScaleMode.ScaleToFit);
 		r = new ScalableRect (324, 0, 38, 38);
-		GUI.DrawTexture (r * scale, Player2_Bench, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (r * scale, GameManager.Instance.Players[3].Icon, ScaleMode.ScaleToFit);
 		
 		r = new ScalableRect (180, 0, 50, 50);
-		GUI.DrawTexture (r * scale, Player1_Active, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (r * scale, GameManager.Instance.Players[0].Icon, ScaleMode.ScaleToFit);
 		r = new ScalableRect (351, 0, 50, 50);
-		GUI.DrawTexture (r * scale, Player2_Active, ScaleMode.ScaleToFit);
+		GUI.DrawTexture (r * scale, GameManager.Instance.Players[2].Icon, ScaleMode.ScaleToFit);
 		
 		r = new ScalableRect (258, 0, 324 - 258, 40);
 		GUI.Box (r * scale, GameManager.Instance.SecondsLeft.ToString ("0"), style);
@@ -73,7 +69,7 @@ public class HUD : MonoBehaviour
 		Power p;
 		float pct;
 		//P1
-		p = GameManager.Instance.ActivePlayers [0].ShownCooldown;
+		p = GameManager.Instance.Players [0].ShownCooldown;
 		t = readyBar;
 		pct = 1;
 		if (p.powerInUse) {
@@ -88,7 +84,7 @@ public class HUD : MonoBehaviour
 		GUI.DrawTexture (r * scale, t);
 		
 		//P2
-		p = GameManager.Instance.ActivePlayers [1].ShownCooldown;
+		p = GameManager.Instance.Players [1].ShownCooldown;
 		t = readyBar;
 		pct = 1;
 		if (p.powerInUse) {
@@ -105,7 +101,7 @@ public class HUD : MonoBehaviour
 		GUI.Box (r * scale, "Cooldowns", style);
 		
 		//P3
-		p = GameManager.Instance.ActivePlayers [2].ShownCooldown;
+		p = GameManager.Instance.Players [2].ShownCooldown;
 		t = readyBar;
 		pct = 1;
 		if (p.powerInUse) {
@@ -119,7 +115,7 @@ public class HUD : MonoBehaviour
 		GUI.DrawTexture (r * scale, t);
 		
 		//P4
-		p = GameManager.Instance.ActivePlayers [3].ShownCooldown;
+		p = GameManager.Instance.Players [3].ShownCooldown;
 		t = readyBar;
 		pct = 1;
 		if (p.powerInUse) {

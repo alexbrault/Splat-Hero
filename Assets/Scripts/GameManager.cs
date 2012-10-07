@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject player3;
 	public GameObject player4;
 	
-	public Player[] ActivePlayers;
+	public Player[] Players;
 	
 	private Transform player1_Transform;
 	private Transform player2_Transform;
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour {
 		Entities.Add(p3o);
 		Entities.Add(p4o);
 		
-		ActivePlayers = new Player[4]{
+		Players = new Player[4]{
 			p1o.GetComponent<Player>(), 
 			p2o.GetComponent<Player>(), 
 			p3o.GetComponent<Player>(), 
