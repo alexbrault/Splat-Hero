@@ -6,7 +6,9 @@ public class Player : Entity {
 	public enum PlayerID
 	{
 		PLAYER1,
-		PLAYER2
+		PLAYER2,
+		PLAYER3,
+		PLAYER4
 	};
 	
 	public enum Facing
@@ -18,7 +20,8 @@ public class Player : Entity {
 	public enum Character
 	{
 		RIRONMAN,
-		LE_TRUC
+		LE_TRUC,
+		TURQUOISE_MAGE
 	};
 	
 	public Character character = Character.RIRONMAN;
@@ -45,6 +48,10 @@ public class Player : Entity {
 			
 		case Character.LE_TRUC:
 			CreateLeTruc();
+			break;
+			
+		case Character.TURQUOISE_MAGE:
+			CreateTurquoiseMage();
 			break;
 		}
 
@@ -141,6 +148,43 @@ public class Player : Entity {
 		grab.SetPlayer(this);
 	}
 	
+	void CreateTurquoiseMage()
+	{
+		spritesheet = new Spritesheet(gameObject);
+		spritesheet.Load("Sprites/ironMan");
+		
+		spritesheet.CreateAnimation("RunLeft", 300);
+		spritesheet.AddFrame("RunLeft", 0, 0, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 32, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 64, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("RunRight", 300);
+		spritesheet.AddFrame("RunRight", 32, 0, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 32, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 64, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("IdleLeft", 0);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 32);
+		
+		spritesheet.CreateAnimation("IdleRight", 0);
+		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
+		
+		spritesheet.SetCurrentAnimation("IdleLeft");
+		
+		// Stats
+		MAX_HERO_SPEED = 70;
+		HERO_ACCELERATION = 8.0f;
+		
+		// Powers
+		Power kick = gameObject.AddComponent<SmoothKick>();
+		kick.SetPlayer(this);
+		
+		Power FreezeBall = gameObject.AddComponent<FreezeBall>();
+		FreezeBall.SetPlayer(this);
+	}
+	
 	// Update is called once per frame
 	void Update () {
 		if(CanMove)
@@ -170,6 +214,18 @@ public class Player : Entity {
 		{
 			xMovement = -Input.GetAxis("Player2_MoveX");
 			zMovement = -Input.GetAxis("Player2_MoveZ");
+		}
+		
+		else if(playerID == PlayerID.PLAYER3)
+		{
+			xMovement = -Input.GetAxis("Player3_MoveX");
+			zMovement = -Input.GetAxis("Player3_MoveZ");
+		}
+		
+		else if(playerID == PlayerID.PLAYER4)
+		{
+			xMovement = -Input.GetAxis("Player4_MoveX");
+			zMovement = -Input.GetAxis("Player4_MoveZ");
 		}
 		
 		SetAnimation(xMovement);

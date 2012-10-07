@@ -34,8 +34,10 @@ public class Grab : Power {
 	
 	public override void ActivatePower()
 	{
-		if( attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && !powerInCooldown ||
-			attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0 && !powerInCooldown )
+		if( (attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && !powerInCooldown) ||
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0 && !powerInCooldown) ||
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
 			ProcessGrab();
 		}
@@ -61,6 +63,12 @@ public class Grab : Power {
 			else if(attachedPlayer.playerID == Player.PlayerID.PLAYER2)
 				xMovement = -Input.GetAxis("Player2_MoveX");
 			
+			else if(attachedPlayer.playerID == Player.PlayerID.PLAYER3)
+				xMovement = -Input.GetAxis("Player3_MoveX");
+			
+			else if(attachedPlayer.playerID == Player.PlayerID.PLAYER4)
+				xMovement = -Input.GetAxis("Player4_MoveX");
+			
 			if(xMovement < 0)
 				attachedPlayer.PlayAnimation("GrabLeft");
 			
@@ -70,8 +78,10 @@ public class Grab : Power {
 		
 		if(!powerInUse && powerInCooldown)
 		{
-			if( attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && grabbedEntity != null ||
-				attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0 && grabbedEntity != null )
+			if( (attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && !powerInCooldown) ||
+				(attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0 && !powerInCooldown) ||
+				(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
+				(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 			{
 				Vector3 shoot = gameObject.rigidbody.velocity;
 				shoot.Normalize();

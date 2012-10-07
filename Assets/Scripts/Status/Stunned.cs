@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Stunned : Status {
-
+	
 	// Use this for initialization
 	void Start () {
 		statusTime = 2;

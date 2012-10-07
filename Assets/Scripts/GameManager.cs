@@ -10,11 +10,17 @@ public class GameManager : MonoBehaviour {
 	public GameObject goblinBall;
 	public GameObject player1;
 	public GameObject player2;
+	public GameObject player3;
+	public GameObject player4;
 	
 	private Transform player1_Transform;
 	private Transform player2_Transform;
+	private Transform player3_Transform;
+	private Transform player4_Transform;
 	private Vector3 player1_Initial;
 	private Vector3 player2_Initial;
+	private Vector3 player3_Initial;
+	private Vector3 player4_Initial;
 	
 	public float SecondsLeft = 30;
 	private bool ballPlayed = false;
@@ -35,8 +41,18 @@ public class GameManager : MonoBehaviour {
 		player2_Transform = p2o.transform;
 		player2_Initial = player2_Transform.position;
 		
-		Entities.Add(p2o);
+		GameObject p3o = (GameObject)Instantiate(player3);
+		player3_Transform = p3o.transform;
+		player3_Initial = player3_Transform.position;
+		
+		GameObject p4o = (GameObject)Instantiate(player4);
+		player4_Transform = p4o.transform;
+		player4_Initial = player4_Transform.position;
+		
 		Entities.Add(p1o);
+		Entities.Add(p2o);
+		Entities.Add(p3o);
+		Entities.Add(p4o);
 		
 		Entities.AddRange(GameObject.FindGameObjectsWithTag("Goal"));
 		
@@ -56,6 +72,8 @@ public class GameManager : MonoBehaviour {
 		Entities.Add((GameObject)Instantiate(goblinBall));
 		player1_Transform.position = player1_Initial;
 		player2_Transform.position = player2_Initial;
+		player3_Transform.position = player3_Initial;
+		player4_Transform.position = player4_Initial;
 		ballPlayed = true;
 	}
 	

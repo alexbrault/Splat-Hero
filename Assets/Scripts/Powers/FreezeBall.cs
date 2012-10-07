@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class Dash : Power {
+public class FreezeBall : Power {
 	
+	GoblinBall ball = null;
+
 	public override void StartPower()
 	{
-		useCooldown = 0.5f;
+		useCooldown = 1.0f;
 		powerCooldown = 3.0f;
 	}
 	
@@ -16,10 +18,15 @@ public class Dash : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
-			ProcessDash();
+			ball = GameObject.Find("GoblinBall(Clone)").GetComponent<GoblinBall>();
+			
+			attachedPlayer.CanMove = false;
 			powerInUse = true;
 			powerInCooldown = true;
 			cooldown = 0;
+			
+			Status status = ball.gameObject.AddComponent<Frozen>();
+			status.SetEntity(ball.gameObject.GetComponent<GoblinBall>());
 		}
 	}
 	
@@ -34,32 +41,5 @@ public class Dash : Power {
 	
 	public override void PowerCooldownCallback()
 	{
-	}
-	
-	void ProcessDash()
-	{
-		attachedPlayer.CanMove = false;
-		
-		Vector3 dashDirection = gameObject.rigidbody.velocity;
-		dashDirection.Normalize();
-		gameObject.rigidbody.AddForce( dashDirection * 1000 );
-	}
-	
-	void OnCollisionEnter(Collision collision)
-	{
-		foreach (ContactPoint contact in collision.contacts) {
-			if(contact.otherCollider.gameObject.CompareTag("Player") && powerInUse)
-			{
-				Status status = contact.otherCollider.gameObject.AddComponent<Stunned>();
-				status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
-				
-				Grab grab = contact.otherCollider.gameObject.GetComponent<Grab>();
-				
-				if(grab != null)
-				{
-					grab.Drop();
-				}
-			}
-        }
 	}
 }

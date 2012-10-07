@@ -2,10 +2,19 @@ using UnityEngine;
 using System.Collections;
 
 public class Grabbed : Status {
-
+	
+	int direction;
+	
 	// Use this for initialization
 	void Start () {
 		infinite = true;
+		
+		if(gameObject.CompareTag("Player"))
+		{
+			direction = Random.Range(0,2);
+			if(direction == 0)
+				direction = -1;
+		}
 	}
 	
 	public override void StartStatusEffect()
@@ -23,10 +32,10 @@ public class Grabbed : Status {
 		}
 		
 		else if(gameObject.CompareTag("Player"))
-		{
+		{			
 			gameObject.GetComponent<Player>().CanMove = false;
 			
-			Vector3 dashDirection = new Vector3(0, 0, 1);
+			Vector3 dashDirection = new Vector3(0, 0, direction);
 			dashDirection.Normalize();
 			gameObject.rigidbody.AddForce( dashDirection * 50 );
 		}
@@ -57,6 +66,9 @@ public class Grabbed : Status {
 	{
 		if(gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Player"))
 		{
+			Status status = gameObject.AddComponent<Stunned>();
+			status.SetEntity(gameObject.GetComponent<Player>());
+			
 			EndStatusEffect();
 		}
 	}
