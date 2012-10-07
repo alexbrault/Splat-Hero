@@ -242,7 +242,7 @@ public class Player : Entity {
 		
 		Power kick = gameObject.AddComponent<SmoothKick>();
 		kick.SetPlayer(this);
-		Power dash = gameObject.AddComponent<Dash>();
+		Power dash = gameObject.AddComponent<Whorl>();
 		dash.SetPlayer(this);
 		
 		ShownCooldown = dash;
