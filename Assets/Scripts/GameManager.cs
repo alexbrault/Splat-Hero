@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
 	private Vector3 player3_Initial;
 	private Vector3 player4_Initial;
 	
-	public float SecondsLeft = 300;
+	public float SecondsLeft = 3;
 	private bool ballPlayed = false;
 	
 	CharacterPicks picks;
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour {
 		if (ballPlayed) {
 			SecondsLeft -= Time.deltaTime;
 			if (SecondsLeft <= 0) {
-				//goto end;
+                Application.LoadLevel("EndingScreen");
 			}
 		}
 	}
