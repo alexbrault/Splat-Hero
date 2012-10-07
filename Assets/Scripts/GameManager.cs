@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour {
 	private Vector3 player1_Initial;
 	private Vector3 player2_Initial;
 	
+	public float SecondsLeft = 30;
+	private bool ballPlayed = false;
+	
 	public static GameManager Instance { get; private set; }
 	
 	// Use this for initialization
@@ -41,6 +44,10 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	public void DestroyObject(GameObject o) {
+		if (o.GetComponent<GoblinBall>() != null) {
+			ballPlayed = false;
+		}
+		
 		Entities.Remove(o);
 		Destroy (o);
 	}
@@ -49,11 +56,21 @@ public class GameManager : MonoBehaviour {
 		Entities.Add((GameObject)Instantiate(goblinBall));
 		player1_Transform.position = player1_Initial;
 		player2_Transform.position = player2_Initial;
+		ballPlayed = true;
 	}
 	
 	void OnDestroy() {
 		if (Instance == this) {
 			Instance = null;
+		}
+	}
+	
+	private void Update() {
+		if (ballPlayed) {
+			SecondsLeft -= Time.deltaTime;
+			if (SecondsLeft <= 0) {
+				//goto end;
+			}
 		}
 	}
 }

@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour {
 	public Texture2D Player1_Bench;
 	public Texture2D Player2_Active;
 	public Texture2D Player2_Bench;
+	public Font TimerFont;
 	
 	private float scale;
 	
@@ -21,15 +22,22 @@ public class HUD : MonoBehaviour {
 	
 	private void OnGUI() {
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.width / 10), HUDBackground);
-		ScalableRect r = new ScalableRect(210, 0, 38, 38);
+		ScalableRect r = new ScalableRect(220, 0, 38, 38);
 		GUI.DrawTexture(r * scale, Player1_Bench, ScaleMode.ScaleToFit);
-		r = new ScalableRect(334, 0, 38, 38);
+		r = new ScalableRect(324, 0, 38, 38);
 		GUI.DrawTexture(r * scale, Player2_Bench, ScaleMode.ScaleToFit);
 		
-		r = new ScalableRect(240, 0, 50, 50);
+		r = new ScalableRect(180, 0, 50, 50);
 		GUI.DrawTexture(r * scale, Player1_Active, ScaleMode.ScaleToFit);
-		r = new ScalableRect(291, 0, 50, 50);
+		r = new ScalableRect(351, 0, 50, 50);
 		GUI.DrawTexture(r * scale, Player2_Active, ScaleMode.ScaleToFit);
+		
+		r = new ScalableRect(258, 0, 324-258, 60);
+		GUIStyle style = new GUIStyle();
+		style.fontSize = (int)(27 * scale);
+		style.font = TimerFont;
+		style.alignment = TextAnchor.MiddleCenter;
+		GUI.Box (r * scale, GameManager.Instance.SecondsLeft.ToString("0"), style);
 	}
 }
 
