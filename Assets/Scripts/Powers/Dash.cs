@@ -29,6 +29,7 @@ public class Dash : Power {
 	
 	public override void UseCooldownCallback()
 	{
+		attachedPlayer.ClampVelocity();
 		attachedPlayer.CanMove = true;
 	}
 	

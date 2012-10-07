@@ -289,6 +289,13 @@ public class Player : Entity {
         gameObject.rigidbody.AddForce(new Vector3(HERO_ACCELERATION * xMovement, 0, HERO_ACCELERATION * zMovement));
 	}
 	
+	public void ClampVelocity() {
+		Vector3 velocity = gameObject.rigidbody.velocity;
+		velocity.x = Mathf.Clamp(velocity.x, -MAX_HERO_SPEED, MAX_HERO_SPEED);
+		velocity.z = Mathf.Clamp(velocity.z, -MAX_HERO_SPEED, MAX_HERO_SPEED);
+		gameObject.rigidbody.velocity = velocity;
+	}
+	
 	void SetAnimation(float xMovement)
 	{
 		if(manageAnimation)
