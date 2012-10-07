@@ -34,6 +34,16 @@ public class FreezeBall : Power {
 			{
 				Status status = ball.gameObject.AddComponent<Frozen>();
 				status.SetEntity(ball.gameObject.GetComponent<GoblinBall>());
+				
+				GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+				
+				for(int i = 0; i < players.Length; i++)
+				{
+					if(players[i].GetComponent<Grab>() != null)
+					{
+						players[i].GetComponent<Grab>().InformBallFreeze();
+					}
+				}
 			}
 		}
 	}

@@ -166,6 +166,16 @@ public class Grab : Power {
 		}
 	}
 	
+	public void InformBallFreeze()
+	{
+		if(grabbedEntity != null && gameObject.GetComponent<Frozen>() == null)
+		{
+			Drop();
+			Status status = gameObject.AddComponent<Frozen>();
+			status.SetEntity(gameObject.GetComponent<Player>());
+		}
+	}
+	
 	void PlayGrabAnimation()
 	{
 		if(attachedPlayer.facing == Player.Facing.LEFT)
