@@ -24,7 +24,7 @@ public class GameManager : MonoBehaviour {
 	private Vector3 player3_Initial;
 	private Vector3 player4_Initial;
 	
-	public float SecondsLeft = 30;
+	public float SecondsLeft = 120;
 	private bool ballPlayed = false;
 	
 	CharacterPicks picks;
