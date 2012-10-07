@@ -42,14 +42,14 @@ public class SelectionMenu : MonoBehaviour {
 		
 		GameObject b3 = (GameObject)GameObject.Instantiate(buttonPrefab);
 		b3.AddComponent<CharacterButton>();
-		b3.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/Rironman.icon");
+		b3.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/Turquoise.icon");
 		b3.transform.position = new Vector3(-20,-20,0);
 		CharacterButton button3 = b3.AddComponent<CharacterButton>();
 		button3.character = Player.Character.TURQUOISE_MAGE;
 		
 		GameObject b4 = (GameObject)GameObject.Instantiate(buttonPrefab);
 		b4.AddComponent<CharacterButton>();
-		b4.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/Rironman.icon");
+		b4.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/Shipper.icon");
 		b4.transform.position = new Vector3(20,-20,0);
 		CharacterButton button4 = b4.AddComponent<CharacterButton>();
 		button4.character = Player.Character.RIRONMAN;
@@ -143,7 +143,7 @@ public class SelectionMenu : MonoBehaviour {
 					
 					else if(yIndex == 1)
 					{
-						button.gameObject.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/RironmanBW.icon");
+						button.gameObject.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/TurquoiseBW.icon");
 						SpawnCharacter(Player.Character.TURQUOISE_MAGE);
 					}
 				}
@@ -158,7 +158,7 @@ public class SelectionMenu : MonoBehaviour {
 					
 					else if(yIndex == 1)
 					{
-						button.gameObject.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/RironmanBW.icon");
+						button.gameObject.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/ShipperBW.icon");
 						SpawnCharacter(Player.Character.RIRONMAN);
 					}
 				}
