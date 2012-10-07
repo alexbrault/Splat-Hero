@@ -18,12 +18,15 @@ public class SelectionMenu : MonoBehaviour {
 	int activeTeam = 1;
 	int choosenTeam1 = 0;
 	int choosenTeam2 = 0;
-	Player.Character[] team1 = new Player.Character[2];
-	Player.Character[] team2 = new Player.Character[2];
+	
+	CharacterPicks picks;
 	
 	// Use this for initialization
 	void Start () {
 	
+		picks = GameObject.Find("CharacterPicks").GetComponent<CharacterPicks>();
+			
+			
 		GameObject b1 = (GameObject)GameObject.Instantiate(buttonPrefab);
 		b1.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/Rironman.icon");
 		b1.transform.position = new Vector3(-20,20,0);
@@ -78,6 +81,23 @@ public class SelectionMenu : MonoBehaviour {
 	
 		MoveCursor();
 		SelectCharacter();
+		
+		if(choosenTeam1 + choosenTeam2 > 3)
+		{
+			StartCoroutine( LoadLevel("main") );
+		}
+	}
+	
+	public IEnumerator LoadLevel(string level)
+	{
+		yield return new WaitForSeconds(2);
+		
+		AsyncOperation loading = Application.LoadLevelAsync(level);
+		
+		while(!loading.isDone)
+		{
+			yield return loading;
+		}
 	}
 	
 	void MoveCursor()
@@ -150,7 +170,6 @@ public class SelectionMenu : MonoBehaviour {
 		if(character == Player.Character.RIRONMAN)
 		{
 			obj = (GameObject)GameObject.Instantiate(rironman);
-			
 			obj.transform.Rotate(90, 180, 0);
 		}
 		
@@ -170,6 +189,7 @@ public class SelectionMenu : MonoBehaviour {
 		
 		if(activeTeam == 1)
 		{
+			picks.team1[choosenTeam1] = character;
 			obj.GetComponent<CharacterImage>().SetAnimation("RunRight");
 			
 			if(choosenTeam1 == 0)
@@ -179,12 +199,17 @@ public class SelectionMenu : MonoBehaviour {
 				obj.transform.position = new Vector3(-55,5,0);
 			
 			choosenTeam1++;
-			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/goalLeft");
-			activeTeam = 2;
+			
+			if(choosenTeam1 + choosenTeam2 == 1 || choosenTeam1 + choosenTeam2 == 3 )
+			{
+				menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/goalLeft");
+				activeTeam = 2;
+			}
 		}
 		
 		else
 		{
+			picks.team2[choosenTeam2] = character;
 			obj.GetComponent<CharacterImage>().SetAnimation("RunLeft");
 			
 			if(choosenTeam2 == 0)
@@ -194,8 +219,12 @@ public class SelectionMenu : MonoBehaviour {
 				obj.transform.position = new Vector3(55,5,0);
 			
 			choosenTeam2++;
-			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/rightGoal");
-			activeTeam = 1;
+			
+			if(choosenTeam1 + choosenTeam2 == 1 || choosenTeam1 + choosenTeam2 == 3 )
+			{
+				menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/rightGoal");
+				activeTeam = 1;
+			}
 		}
 	}
 }

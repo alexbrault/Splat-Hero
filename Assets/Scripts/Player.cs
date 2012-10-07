@@ -161,26 +161,26 @@ public class Player : Entity {
 	
 	void CreateTurquoiseMage()
 	{
-		spritesheet = new Spritesheet(gameObject);
-		spritesheet.Load("Sprites/ironMan");
+		spritesheet = new Spritesheet(gameObject);		
+		spritesheet.Load("Sprites/LeMage");
 		
 		spritesheet.CreateAnimation("RunLeft", 300);
-		spritesheet.AddFrame("RunLeft", 0, 0, 32, 32);
-		spritesheet.AddFrame("RunLeft", 0, 32, 32, 32);
-		spritesheet.AddFrame("RunLeft", 0, 64, 32, 32);
-		spritesheet.AddFrame("RunLeft", 0, 96, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 0, 32, 48);
+		spritesheet.AddFrame("RunLeft", 0, 48, 32, 48);
+		spritesheet.AddFrame("RunLeft", 0, 96, 32, 48);
+		spritesheet.AddFrame("RunLeft", 0, 144, 32, 48);
 		
 		spritesheet.CreateAnimation("RunRight", 300);
-		spritesheet.AddFrame("RunRight", 32, 0, 32, 32);
-		spritesheet.AddFrame("RunRight", 32, 32, 32, 32);
-		spritesheet.AddFrame("RunRight", 32, 64, 32, 32);
-		spritesheet.AddFrame("RunRight", 32, 96, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 0, 32, 48);
+		spritesheet.AddFrame("RunRight", 32, 48, 32, 48);
+		spritesheet.AddFrame("RunRight", 32, 96, 32, 48);
+		spritesheet.AddFrame("RunRight", 32, 144, 32, 48);
 		
 		spritesheet.CreateAnimation("IdleLeft", 0);
-		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 32);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 48);
 		
 		spritesheet.CreateAnimation("IdleRight", 0);
-		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
+		spritesheet.AddFrame("IdleRight", 32, 0, 32, 48);
 		
 		spritesheet.SetCurrentAnimation("IdleLeft");
 		

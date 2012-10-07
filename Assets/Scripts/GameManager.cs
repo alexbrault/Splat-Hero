@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour {
 	public float SecondsLeft = 30;
 	private bool ballPlayed = false;
 	
+	CharacterPicks picks;
+	
 	public static GameManager Instance { get; private set; }
 	
 	// Use this for initialization
@@ -35,19 +37,30 @@ public class GameManager : MonoBehaviour {
 			Instance = this;
 		}
 		
+		picks = GameObject.Find("CharacterPicks").GetComponent<CharacterPicks>();
+		
 		GameObject p1o = (GameObject)Instantiate(player1);
+		Player p1 = p1o.GetComponent<Player>();
+		p1.character = picks.team1[0];
+		SetScale(p1o, p1.character);
 		player1_Transform = p1o.transform;
 		player1_Initial = player1_Transform.position;
 		
 		GameObject p2o = (GameObject)Instantiate(player2);
+		Player p2 = p2o.GetComponent<Player>();
+		p2.character = picks.team1[1];
 		player2_Transform = p2o.transform;
 		player2_Initial = player2_Transform.position;
 		
 		GameObject p3o = (GameObject)Instantiate(player3);
+		Player p3 = p3o.GetComponent<Player>();
+		p3.character = picks.team2[0];
 		player3_Transform = p3o.transform;
 		player3_Initial = player3_Transform.position;
 		
 		GameObject p4o = (GameObject)Instantiate(player4);
+		Player p4 = p4o.GetComponent<Player>();
+		p4.character = picks.team2[1];
 		player4_Transform = p4o.transform;
 		player4_Initial = player4_Transform.position;
 		
@@ -66,6 +79,18 @@ public class GameManager : MonoBehaviour {
 		Entities.AddRange(GameObject.FindGameObjectsWithTag("Goal"));
 		
 		NewBall ();
+	}
+	
+	public void SetScale(GameObject obj, Player.Character character)
+	{
+		if(character == Player.Character.RIRONMAN)
+			obj.transform.localScale = new Vector3(2, 2, 2);
+		
+		else if(character == Player.Character.LE_TRUC)
+			obj.transform.localScale = new Vector3(2, 2, 3);
+		
+		else if(character == Player.Character.TURQUOISE_MAGE)
+			obj.transform.localScale = new Vector3(1.3f, 2, 2);
 	}
 	
 	public void DestroyObject(GameObject o) {
