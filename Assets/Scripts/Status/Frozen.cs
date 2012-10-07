@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Frozen : Status {
 	
+	private Transform prefab;
 	Texture2D ice = null;
 	GameObject iceObject = null;
 	
@@ -20,7 +21,11 @@ public class Frozen : Status {
 			statusTime = 4;
 		}
 		
-		iceObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		if (prefab == null) {
+			prefab = Resources.Load("Stun", typeof(Transform)) as Transform;
+		}
+		
+		iceObject = ((Transform)Instantiate(prefab)).gameObject;
 		iceObject.transform.position = gameObject.transform.position + new Vector3(0,2,0);
 		iceObject.transform.rotation = gameObject.transform.rotation;
 		iceObject.transform.localScale = gameObject.transform.localScale;
