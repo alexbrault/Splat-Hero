@@ -18,12 +18,16 @@ public class Grab : Power {
 			grabbedEntity.GetComponent<Grabbed>().EndStatusEffect();
 			grabbedEntity = null;
 		}
+		
+		else
+			StartPower();
 	}
 	
 	public override void StartPower()
 	{
 		useCooldown = 1.0f;
-		powerCooldown = 10.0f;
+		powerCooldown = 5.0f;
+		grabbedEntity = null;
 	}
 	
 	public override void ActivatePower()
@@ -61,10 +65,8 @@ public class Grab : Power {
 				grabbedEntity.rigidbody.velocity = new Vector3(0,0,0);
 				grabbedEntity.rigidbody.AddForce(gameObject.transform.position + (shoot * 500));
 				
-				grabbedEntity = null;
-				
-				
 				ResetPower();
+				grabbedEntity = null;
 				powerInCooldown = true;
 				useCooldown = 1.0f;
 				powerCooldown = 1.0f;
@@ -86,8 +88,7 @@ public class Grab : Power {
 	
 	public override void PowerCooldownCallback()
 	{
-		grabbedEntity = null;
-		StartPower();
+		Drop();
 	}
 	
 	void ProcessGrab()

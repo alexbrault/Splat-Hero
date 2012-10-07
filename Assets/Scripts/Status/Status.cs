@@ -9,10 +9,15 @@ public abstract class Status : MonoBehaviour {
 	bool inCooldown = false;
 	float cooldown = 0;
 	
+	public bool infinite = false;
+	
 	// Update is called once per frame
 	protected void Update () {
 	
-		if(inCooldown)
+		if(infinite)
+			ProcessStatusEffect();
+		
+		else if(inCooldown)
 		{
 			ProcessStatusEffect();
 			

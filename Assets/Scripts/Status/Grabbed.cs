@@ -5,7 +5,7 @@ public class Grabbed : Status {
 
 	// Use this for initialization
 	void Start () {
-		statusTime = 5.0f;
+		infinite = true;
 	}
 	
 	public override void StartStatusEffect()

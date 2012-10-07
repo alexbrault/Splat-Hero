@@ -24,13 +24,13 @@ abstract public class Power : MonoBehaviour {
 		{
 			cooldown += Time.deltaTime;
 			
-			if(cooldown > useCooldown)
+			if(powerInUse && cooldown > useCooldown)
 			{
 				powerInUse = false;
 				UseCooldownCallback();
 			}
 			
-			if(cooldown > powerCooldown)
+			if(powerInCooldown && cooldown > powerCooldown)
 			{
 				powerInCooldown = false;
 				PowerCooldownCallback();
