@@ -20,6 +20,9 @@ public class FreezeBall : Power {
 		{
 			ball = GameObject.Find("GoblinBall(Clone)").GetComponent<GoblinBall>();
 			
+			AudioClip clip = (AudioClip)Resources.Load("Audio/spell");
+			gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+			
 			attachedPlayer.CanMove = false;
 			powerInUse = true;
 			powerInCooldown = true;

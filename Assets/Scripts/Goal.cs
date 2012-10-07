@@ -25,6 +25,10 @@ public class Goal : MonoBehaviour {
 		GoblinBall candidate = other.gameObject.GetComponent<GoblinBall>();
 		if (candidate != null && candidate.isLocked) {
 			Score++;
+			
+			AudioClip clip = (AudioClip)Resources.Load("Audio/kill");
+			gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+			
 			GameManager.Instance.DestroyObject(candidate.gameObject);
 			StartCoroutine(MakeBallSoonish());
 			SplatterShower.Instance.ShowSplatter();
@@ -34,5 +38,8 @@ public class Goal : MonoBehaviour {
 	private IEnumerator MakeBallSoonish() {
 			yield return new WaitForSeconds(1.5f);
 			GameManager.Instance.NewBall();
+		
+			AudioClip clip = (AudioClip)Resources.Load("Audio/whistle");
+			gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
 	}
 }

@@ -61,6 +61,8 @@ public class Player : Entity {
 			CreateShipper();
 			break;
 		}
+		
+		gameObject.AddComponent<AudioSource>();
 	
         GameObject mainCamera = GameObject.Find("Main Camera");
 		

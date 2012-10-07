@@ -39,6 +39,9 @@ public class Grab : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
+			AudioClip clip = (AudioClip)Resources.Load("Audio/grab");
+			gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+			
 			ProcessGrab();
 		}
 		
@@ -86,6 +89,9 @@ public class Grab : Power {
 				Vector3 shoot = gameObject.rigidbody.velocity;
 				shoot.Normalize();
 				
+				AudioClip clip = (AudioClip)Resources.Load("Audio/throw");
+				gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+				
 				grabbedEntity.GetComponent<GoblinBall>().Lock();
 				Destroy(grabbedEntity.GetComponent<Grabbed>());
 				
@@ -103,6 +109,9 @@ public class Grab : Power {
 				useCooldown = 1.0f;
 				powerCooldown = 2.0f;
 				cooldown = 0;
+				
+				AudioClip clip2 = (AudioClip)Resources.Load("Audio/thrown");
+				gameObject.GetComponent<AudioSource>().PlayOneShot(clip2);
 			}
 		}
 	}

@@ -39,6 +39,9 @@ public class Dash : Power {
 	
 	void ProcessDash()
 	{
+		AudioClip clip = (AudioClip)Resources.Load("Audio/dash");
+		gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+		
 		attachedPlayer.CanMove = false;
 		
 		Vector3 dashDirection = gameObject.rigidbody.velocity;
@@ -60,6 +63,11 @@ public class Dash : Power {
 				{
 					grab.Drop();
 				}
+			}
+			
+			else if(!contact.otherCollider.gameObject.CompareTag("Ball"))
+			{
+				gameObject.GetComponent<AudioSource>().Stop();
 			}
         }
 	}
