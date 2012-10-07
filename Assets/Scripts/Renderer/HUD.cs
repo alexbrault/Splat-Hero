@@ -21,6 +21,12 @@ public class HUD : MonoBehaviour {
 	}
 	
 	private void OnGUI() {
+		GUIStyle style = new GUIStyle();
+		style.fontSize = (int)(27 * scale);
+		style.font = TimerFont;
+		style.alignment = TextAnchor.MiddleCenter;
+		
+		
 		GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.width / 10), HUDBackground);
 		ScalableRect r = new ScalableRect(220, 0, 38, 38);
 		GUI.DrawTexture(r * scale, Player1_Bench, ScaleMode.ScaleToFit);
@@ -32,12 +38,14 @@ public class HUD : MonoBehaviour {
 		r = new ScalableRect(351, 0, 50, 50);
 		GUI.DrawTexture(r * scale, Player2_Active, ScaleMode.ScaleToFit);
 		
-		r = new ScalableRect(258, 0, 324-258, 60);
-		GUIStyle style = new GUIStyle();
-		style.fontSize = (int)(27 * scale);
-		style.font = TimerFont;
-		style.alignment = TextAnchor.MiddleCenter;
+		r = new ScalableRect(258, 0, 324-258, 40);
 		GUI.Box (r * scale, GameManager.Instance.SecondsLeft.ToString("0"), style);
+		
+		
+		r = new ScalableRect(4, 3, 44, 44);
+		GUI.Box(r * scale, Goal.Player1_Goal.Score.ToString(), style);
+		r = new ScalableRect(533, 3, 44, 44);
+		GUI.Box(r * scale, Goal.Player2_Goal.Score.ToString(), style);
 	}
 }
 
