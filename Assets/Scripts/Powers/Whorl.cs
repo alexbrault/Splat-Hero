@@ -6,7 +6,7 @@ public class Whorl : Power {
 	public override void StartPower()
 	{
 		useCooldown = 0.2f;
-		powerCooldown = 2;
+		powerCooldown = 1.5f;
 	}
 	
 	public override void ActivatePower()
@@ -52,6 +52,7 @@ public class Whorl : Power {
 				{
 					Status grabbed = collision.collider.gameObject.AddComponent<Stunned>();
 					grabbed.SetEntity(collision.collider.GetComponent<Player>());
+					grabbed.statusTime = 0.5f;
 				}
 			}
 		}

@@ -6,13 +6,9 @@ public class Stunned : Status {
 	Spritesheet stun = null;
 	GameObject stunObject = null;
 	
-	// Use this for initialization
-	void Start () {
-		statusTime = 2;
-	}
-	
 	public override void StartStatusEffect()
 	{
+		statusTime = 2;
 		if(attachedEntity is Player)
 		{
 			if (prefab == null) {
