@@ -23,6 +23,10 @@ public class CharacterImage : Entity {
 		case Player.Character.TURQUOISE_MAGE:
 			CreateTurquoiseMage();
 			break;
+			
+		case Player.Character.SHIPPER:
+			CreateShipper();
+			break;
 		}
 	}
 	
@@ -121,6 +125,33 @@ public class CharacterImage : Entity {
 		
 		spritesheet.SetCurrentAnimation(characterAnimation);
 	}
+	
+	void CreateShipper()
+	{
+		spritesheet = new Spritesheet(gameObject);		
+		spritesheet.Load("Sprites/chipper");
+		
+		spritesheet.CreateAnimation("RunLeft", 300);
+		spritesheet.AddFrame("RunLeft", 0, 0, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 64, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 128, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("RunRight", 300);
+		spritesheet.AddFrame("RunRight", 48, 0, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 64, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 128, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("IdleLeft", 0);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 48, 64);
+		
+		spritesheet.CreateAnimation("IdleRight", 0);
+		spritesheet.AddFrame("IdleRight", 48, 0, 48, 64);
+		
+		spritesheet.SetCurrentAnimation(characterAnimation);
+	}
+		
 	
 	// Update is called once per frame
 	void Update () {

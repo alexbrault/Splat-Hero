@@ -9,6 +9,7 @@ public class SelectionMenu : MonoBehaviour {
 	public GameObject rironman = null;
 	public GameObject leTruc = null;
 	public GameObject turquoiseMage = null;
+	public GameObject shipper = null;
 	
 	GameObject menuCursor;
 	int xIndex = 0;
@@ -63,6 +64,7 @@ public class SelectionMenu : MonoBehaviour {
 		menuCursor.transform.position = new Vector3(-20,20,0);
 		
 		DetermineFirstTeam();
+		PlayAudio();
 	}
 	
 	void DetermineFirstTeam()
@@ -74,6 +76,12 @@ public class SelectionMenu : MonoBehaviour {
 		
 		else
 			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/goalLeft");
+	}
+	
+	void PlayAudio()
+	{
+		AudioClip clip = (AudioClip)Resources.Load("Audio/chooseTeam");
+		gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
 	}
 	
 	// Update is called once per frame
@@ -150,7 +158,7 @@ public class SelectionMenu : MonoBehaviour {
 					else if(yIndex == 1)
 					{
 						button.gameObject.renderer.material.mainTexture = (Texture2D)Resources.Load("Icon/ShipperBW.icon");
-						SpawnCharacter(Player.Character.RIRONMAN);
+						SpawnCharacter(Player.Character.SHIPPER);
 					}
 				}
 			}
@@ -177,6 +185,13 @@ public class SelectionMenu : MonoBehaviour {
 		else if(character == Player.Character.TURQUOISE_MAGE)
 		{
 			obj = (GameObject)GameObject.Instantiate(turquoiseMage);
+			obj.transform.position = new Vector3(-80,20,0);
+			obj.transform.Rotate(90, 180, 0);
+		}
+		
+		else if(character == Player.Character.SHIPPER)
+		{
+			obj = (GameObject)GameObject.Instantiate(shipper);
 			obj.transform.position = new Vector3(-80,20,0);
 			obj.transform.Rotate(90, 180, 0);
 		}

@@ -56,6 +56,10 @@ public class Player : Entity {
 		case Character.TURQUOISE_MAGE:
 			CreateTurquoiseMage();
 			break;
+			
+		case Character.SHIPPER:
+			CreateShipper();
+			break;
 		}
 	
         GameObject mainCamera = GameObject.Find("Main Camera");
@@ -203,6 +207,38 @@ public class Player : Entity {
 				
 		ShownCooldown = FreezeBall;
 		Icon = (Texture2D)Resources.Load("Icon/Turquoise.icon");
+	}
+	
+	void CreateShipper()
+	{
+		spritesheet = new Spritesheet(gameObject);		
+		spritesheet.Load("Sprites/chipper");
+		
+		spritesheet.CreateAnimation("RunLeft", 300);
+		spritesheet.AddFrame("RunLeft", 0, 0, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 64, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 128, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("RunRight", 300);
+		spritesheet.AddFrame("RunRight", 48, 0, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 64, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 128, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("IdleLeft", 0);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 48, 64);
+		
+		spritesheet.CreateAnimation("IdleRight", 0);
+		spritesheet.AddFrame("IdleRight", 48, 0, 48, 64);
+		
+		spritesheet.SetCurrentAnimation("IdleLeft");
+		
+		// Stats
+		MAX_HERO_SPEED = 70;
+		HERO_ACCELERATION = 8.0f;
+		
+		Icon = (Texture2D)Resources.Load("Icon/Shipper.icon");
 	}
 	
 	// Update is called once per frame
