@@ -7,8 +7,8 @@ public class FreezeBall : Power {
 
 	public override void StartPower()
 	{
-		useCooldown = 1.0f;
-		powerCooldown = 8.0f;
+		useCooldown = 0.5f;
+		powerCooldown = 5.0f;
 	}
 	
 	public override void ActivatePower()

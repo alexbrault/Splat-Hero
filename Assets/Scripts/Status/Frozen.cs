@@ -12,13 +12,13 @@ public class Frozen : Status {
 		if(gameObject.CompareTag("Ball"))
 		{
 			ice = (Texture2D)Resources.Load("Sprites/SmallIceBlock");
-			statusTime = 1;
+			statusTime = 0.5f;
 		}
 		
 		else
 		{
 			ice = (Texture2D)Resources.Load("Sprites/BigIceBlock");
-			statusTime = 3;
+			statusTime = 2.5f;
 		}
 		
 		if (prefab == null) {
