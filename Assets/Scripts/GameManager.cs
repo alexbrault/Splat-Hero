@@ -25,14 +25,10 @@ public class GameManager : MonoBehaviour {
 		}
 		
 		GameObject p1o = (GameObject)Instantiate(player1);
-		p1o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER1;
-		p1o.GetComponent<Player>().SetPowers();
 		player1_Transform = p1o.transform;
 		player1_Initial = player1_Transform.position;
 		
 		GameObject p2o = (GameObject)Instantiate(player2);
-		p2o.GetComponent<Player>().playerID = Player.PlayerID.PLAYER2;
-		p2o.GetComponent<Player>().SetPowers();
 		player2_Transform = p2o.transform;
 		player2_Initial = player2_Transform.position;
 		

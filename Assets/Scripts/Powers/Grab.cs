@@ -101,6 +101,9 @@ public class Grab : Power {
 		
 		foreach (Collider collision in collisions)
 		{
+			if(collision.collider == gameObject.collider)
+				continue;
+			
 			if(collision.collider.gameObject.CompareTag("Ball"))
 			{
 				Status grabbed = collision.collider.gameObject.AddComponent<Grabbed>();
@@ -108,6 +111,12 @@ public class Grab : Power {
 				
 				grabbedEntity = collision.collider.gameObject;
 				Physics.IgnoreCollision(gameObject.collider, grabbedEntity.collider);
+			}
+			
+			else if(collision.collider.gameObject.CompareTag("Player"))
+			{
+				Status grabbed = collision.collider.gameObject.AddComponent<Grabbed>();
+				grabbed.SetEntity(gameObject.GetComponent<Player>());
 			}
 		}
 	}

@@ -13,9 +13,17 @@ public class Player : Entity {
 	{
 		LEFT,
 		RIGHT
-	}
+	};
 	
-	public PlayerID playerID { get; set; }
+	public enum Character
+	{
+		RIRONMAN,
+		LE_TRUC
+	};
+	
+	public Character character = Character.RIRONMAN;
+	
+	public PlayerID playerID = PlayerID.PLAYER1;
 	public Facing facing = Facing.LEFT;
 	
 	protected const float MAX_HERO_SPEED = 40.0f;
@@ -27,6 +35,56 @@ public class Player : Entity {
 	void Start () {
 		base.Start();
 		
+		switch(character)
+		{
+		case Character.RIRONMAN:
+			CreateRironman();
+			break;
+			
+		case Character.LE_TRUC:
+			CreateLeTruc();
+			break;
+		}
+
+        GameObject mainCamera = GameObject.Find("Main Camera");
+        mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
+	}
+	
+	void CreateRironman()
+	{
+		spritesheet = new Spritesheet(gameObject);
+		spritesheet.Load("Sprites/ironMan");
+		
+		spritesheet.CreateAnimation("RunLeft", 300);
+		spritesheet.AddFrame("RunLeft", 0, 0, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 32, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 64, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("RunRight", 300);
+		spritesheet.AddFrame("RunRight", 32, 0, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 32, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 64, 32, 32);
+		spritesheet.AddFrame("RunRight", 32, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("IdleLeft", 0);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 32);
+		
+		spritesheet.CreateAnimation("IdleRight", 0);
+		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
+		
+		spritesheet.SetCurrentAnimation("IdleLeft");
+		
+		// Powers
+		Power kick = gameObject.AddComponent<SmoothKick>();
+		kick.SetPlayer(this);
+		
+		Power dash = gameObject.AddComponent<Dash>();
+		dash.SetPlayer(this);
+	}
+	
+	void CreateLeTruc()
+	{
 		spritesheet = new Spritesheet(gameObject);
 		spritesheet.Load("Sprites/truc");
 		
@@ -49,9 +107,10 @@ public class Player : Entity {
 		spritesheet.AddFrame("IdleRight", 48, 0, 48, 64);
 		
 		spritesheet.SetCurrentAnimation("IdleLeft");
-
-        GameObject mainCamera = GameObject.Find("Main Camera");
-        mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
+		
+		// Powers
+		Power grab = gameObject.AddComponent<Grab>();
+		grab.SetPlayer(this);
 	}
 	
 	// Update is called once per frame
@@ -68,24 +127,6 @@ public class Player : Entity {
 		base.Update();
 	}
 	
-	public void SetPowers()
-	{
-		if(playerID == PlayerID.PLAYER1)
-		{
-			Power kick = gameObject.AddComponent<SmoothKick>();
-			kick.SetPlayer(this);
-			
-			Power dash = gameObject.AddComponent<Dash>();
-			dash.SetPlayer(this);
-		}
-		
-		else
-		{
-			Power grab = gameObject.AddComponent<Grab>();
-			grab.SetPlayer(this);
-		}
-	}
-	
 	protected void Move()
 	{
 		float xMovement = 0.0f;
@@ -93,14 +134,14 @@ public class Player : Entity {
 		
 		if(playerID == PlayerID.PLAYER1)
 		{
-			xMovement = -Input.GetAxisRaw("Player1_MoveX");
-			zMovement = -Input.GetAxisRaw("Player1_MoveZ");
+			xMovement = -Input.GetAxis("Player1_MoveX");
+			zMovement = -Input.GetAxis("Player1_MoveZ");
 		}
 		
 		else if(playerID == PlayerID.PLAYER2)
 		{
-			xMovement = -Input.GetAxisRaw("Player2_MoveX");
-			zMovement = -Input.GetAxisRaw("Player2_MoveZ");
+			xMovement = -Input.GetAxis("Player2_MoveX");
+			zMovement = -Input.GetAxis("Player2_MoveZ");
 		}
 		
 		SetAnimation(xMovement);
