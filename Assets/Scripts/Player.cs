@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Player : Entity {
+	public Power ShownCooldown = new NullPower();
 	
 	public enum PlayerID
 	{
@@ -94,6 +95,8 @@ public class Player : Entity {
 		
 		Power dash = gameObject.AddComponent<Dash>();
 		dash.SetPlayer(this);
+		
+		ShownCooldown = dash;
 	}
 	
 	void CreateLeTruc()
@@ -146,6 +149,8 @@ public class Player : Entity {
 		// Powers
 		Power grab = gameObject.AddComponent<Grab>();
 		grab.SetPlayer(this);
+		
+		ShownCooldown = grab;
 	}
 	
 	void CreateTurquoiseMage()
@@ -183,6 +188,8 @@ public class Player : Entity {
 		
 		Power FreezeBall = gameObject.AddComponent<FreezeBall>();
 		FreezeBall.SetPlayer(this);
+				
+		ShownCooldown = FreezeBall;
 	}
 	
 	// Update is called once per frame

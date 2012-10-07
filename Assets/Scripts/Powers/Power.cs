@@ -3,19 +3,14 @@ using System.Collections;
 
 abstract public class Power : MonoBehaviour {
 	
-	protected bool powerInUse = false;
-	protected bool powerInCooldown = false;
+	public bool powerInUse {get; protected set;}
+	public bool powerInCooldown {get; protected set;}
 	
-	protected float useCooldown;
-	protected float powerCooldown;
-	protected float cooldown;
+	public float useCooldown {get; protected set;}
+	public float powerCooldown {get; protected set;}
+	public float cooldown {get; protected set;}
 	
 	protected Player attachedPlayer = null;
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -63,4 +58,17 @@ abstract public class Power : MonoBehaviour {
 	public abstract void ProcessPower();
 	public abstract void UseCooldownCallback();
 	public abstract void PowerCooldownCallback();
+}
+
+public class NullPower : Power {
+	
+	public override void StartPower()
+	{
+		useCooldown = 0;
+		powerCooldown = 1.0f;
+	}
+	public override void ActivatePower(){}
+	public override void ProcessPower(){}
+	public override void UseCooldownCallback(){}
+	public override void PowerCooldownCallback(){}
 }

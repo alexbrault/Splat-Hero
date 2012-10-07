@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject player3;
 	public GameObject player4;
 	
+	public Player[] ActivePlayers;
+	
 	private Transform player1_Transform;
 	private Transform player2_Transform;
 	private Transform player3_Transform;
@@ -53,6 +55,13 @@ public class GameManager : MonoBehaviour {
 		Entities.Add(p2o);
 		Entities.Add(p3o);
 		Entities.Add(p4o);
+		
+		ActivePlayers = new Player[4]{
+			p1o.GetComponent<Player>(), 
+			p2o.GetComponent<Player>(), 
+			p3o.GetComponent<Player>(), 
+			p4o.GetComponent<Player>()
+		};
 		
 		Entities.AddRange(GameObject.FindGameObjectsWithTag("Goal"));
 		
