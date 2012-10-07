@@ -358,6 +358,7 @@ public class Player : Entity {
         }
 
         gameObject.rigidbody.AddForce(new Vector3(HERO_ACCELERATION * xMovement, 0, HERO_ACCELERATION * zMovement));
+		ClampVelocity();
 	}
 	
 	public void ClampVelocity() {
