@@ -96,6 +96,18 @@ public class Player : Entity {
 		spritesheet.AddFrame("RunRight", 32, 64, 32, 32);
 		spritesheet.AddFrame("RunRight", 32, 96, 32, 32);
 		
+		spritesheet.CreateAnimation("DashLeft", 300);
+		spritesheet.AddFrame("DashLeft", 64, 0, 32, 32);
+		spritesheet.AddFrame("DashLeft", 64, 32, 32, 32);
+		spritesheet.AddFrame("DashLeft", 64, 64, 32, 32);
+		spritesheet.AddFrame("DashLeft", 64, 96, 32, 32);
+		
+		spritesheet.CreateAnimation("DashRight", 300);
+		spritesheet.AddFrame("DashRight", 96, 0, 32, 32);
+		spritesheet.AddFrame("DashRight", 96, 32, 32, 32);
+		spritesheet.AddFrame("DashRight", 96, 64, 32, 32);
+		spritesheet.AddFrame("DashRight", 96, 96, 32, 32);
+		
 		spritesheet.CreateAnimation("IdleLeft", 0);
 		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 32);
 		

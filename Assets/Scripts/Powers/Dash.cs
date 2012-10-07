@@ -16,6 +16,14 @@ public class Dash : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
+			Player.Facing face = gameObject.GetComponent<Player>().facing;
+			
+			if(face == Player.Facing.LEFT)
+				gameObject.GetComponent<Player>().PlayAnimation("DashLeft");
+					
+			else
+				gameObject.GetComponent<Player>().PlayAnimation("DashRight");
+			
 			ProcessDash();
 			powerInUse = true;
 			powerInCooldown = true;
@@ -31,6 +39,14 @@ public class Dash : Power {
 	{
 		attachedPlayer.ClampVelocity();
 		attachedPlayer.CanMove = true;
+		
+		Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+		if(face == Player.Facing.LEFT)
+			gameObject.GetComponent<Player>().PlayAnimation("RunLeft");
+				
+		else
+			gameObject.GetComponent<Player>().PlayAnimation("RunRight");
 	}
 	
 	public override void PowerCooldownCallback()
