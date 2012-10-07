@@ -243,6 +243,18 @@ public class Player : Entity {
 		spritesheet.AddFrame("RunRight", 48, 128, 48, 64);
 		spritesheet.AddFrame("RunRight", 48, 192, 48, 64);
 		
+		spritesheet.CreateAnimation("SpinLeft", 50);
+		spritesheet.AddFrame("SpinLeft", 96, 0, 48, 64);
+		spritesheet.AddFrame("SpinLeft", 96, 64, 48, 64);
+		spritesheet.AddFrame("SpinLeft", 96, 128, 48, 64);
+		spritesheet.AddFrame("SpinLeft", 96, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("SpinRight", 50);
+		spritesheet.AddFrame("SpinRight", 144, 0, 48, 64);
+		spritesheet.AddFrame("SpinRight", 144, 64, 48, 64);
+		spritesheet.AddFrame("SpinRight", 144, 128, 48, 64);
+		spritesheet.AddFrame("SpinRight", 144, 192, 48, 64);
+		
 		spritesheet.CreateAnimation("IdleLeft", 0);
 		spritesheet.AddFrame("IdleLeft", 0, 0, 48, 64);
 		

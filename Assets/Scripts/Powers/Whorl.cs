@@ -5,7 +5,7 @@ public class Whorl : Power {
 	
 	public override void StartPower()
 	{
-		useCooldown = 0.2f;
+		useCooldown = 0.5f;
 		powerCooldown = 1.5f;
 	}
 	
@@ -22,12 +22,23 @@ public class Whorl : Power {
 				ProcessWhorl();
 				powerInUse = true;
 				powerInCooldown = true;
+				
+				Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+				if(face == Player.Facing.LEFT)
+					gameObject.GetComponent<Player>().PlayAnimation("SpinLeft");
+						
+				else
+					gameObject.GetComponent<Player>().PlayAnimation("SpinRight");
 			}
 		}
 	}
 
 	public void ProcessWhorl ()
 	{
+		AudioClip clip = (AudioClip)Resources.Load("Audio/swirl");
+		gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
+		
 		attachedPlayer.CanMove = false;
 		attachedPlayer.rigidbody.velocity = new Vector3(0, 0, 0);
 		
@@ -63,6 +74,19 @@ public class Whorl : Power {
 	}
 	
 	public override void ProcessPower(){}
-	public override void UseCooldownCallback(){ attachedPlayer.CanMove = true; }
+	
+	public override void UseCooldownCallback()
+	{
+		attachedPlayer.CanMove = true;
+		
+		Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+		if(face == Player.Facing.LEFT)
+			gameObject.GetComponent<Player>().PlayAnimation("RunLeft");
+				
+		else
+			gameObject.GetComponent<Player>().PlayAnimation("RunRight");
+	}
+	
 	public override void PowerCooldownCallback(){ResetPower();}
 }
