@@ -32,7 +32,7 @@ public class SplashScreen : MonoBehaviour {
 		GUI.DrawTexture(splash, mSplashScreenTex);
 		
 		if (mAlphaFadeValue > 0)
-			mAlphaFadeValue -= Mathf.Clamp01(Time.deltaTime/5);
+			mAlphaFadeValue -= Mathf.Clamp01(Time.deltaTime);
 		
 		else
 			allowSkip = true;

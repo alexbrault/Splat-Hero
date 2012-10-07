@@ -238,6 +238,12 @@ public class Player : Entity {
 		MAX_HERO_SPEED = 70;
 		HERO_ACCELERATION = 8.0f;
 		
+		Power kick = gameObject.AddComponent<SmoothKick>();
+		kick.SetPlayer(this);
+		Power dash = gameObject.AddComponent<Dash>();
+		dash.SetPlayer(this);
+		
+		ShownCooldown = dash;
 		Icon = (Texture2D)Resources.Load("Icon/Shipper.icon");
 	}
 	
