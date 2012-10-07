@@ -2,14 +2,33 @@ using UnityEngine;
 using System.Collections;
 
 public class Frozen : Status {
-
+	
+	Texture2D ice = null;
+	GameObject iceObject = null;
+	
 	// Use this for initialization
 	void Start () {
 		if(gameObject.CompareTag("Ball"))
+		{
+			ice = (Texture2D)Resources.Load("Sprites/SmallIceBlock");
 			statusTime = 10;
+		}
 		
 		else
+		{
+			ice = (Texture2D)Resources.Load("Sprites/BigIceBlock");
 			statusTime = 4;
+		}
+		
+		iceObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		iceObject.transform.position = gameObject.transform.position + new Vector3(0,2,0);
+		iceObject.transform.rotation = gameObject.transform.rotation;
+		iceObject.transform.localScale = gameObject.transform.localScale;
+		
+		iceObject.renderer.material.mainTexture = ice;
+		iceObject.renderer.material.shader = Shader.Find("Unlit/Transparent");
+		
+		iceObject.transform.parent = gameObject.transform;
 	}
 	
 	public override void StartStatusEffect()
@@ -25,6 +44,7 @@ public class Frozen : Status {
 	public override void EndStatusEffect()
 	{
 		attachedEntity.CanMove = true;
+		Destroy(iceObject);
 		Destroy(this);
 	}
 	
