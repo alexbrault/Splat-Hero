@@ -25,6 +25,9 @@ public class Whorl : Power {
 
 	public void ProcessWhorl ()
 	{
+		attachedPlayer.CanMove = false;
+		attachedPlayer.rigidbody.velocity = new Vector3(0, 0, 0);
+		
 		Collider[] collisions = Physics.OverlapSphere(gameObject.transform.position, 20);
 		
 		foreach (Collider collision in collisions)
@@ -56,6 +59,6 @@ public class Whorl : Power {
 	}
 	
 	public override void ProcessPower(){}
-	public override void UseCooldownCallback(){}
+	public override void UseCooldownCallback(){ attachedPlayer.CanMove = true; }
 	public override void PowerCooldownCallback(){ResetPower();}
 }

@@ -8,7 +8,7 @@ public class FreezeBall : Power {
 	public override void StartPower()
 	{
 		useCooldown = 1.0f;
-		powerCooldown = 3.0f;
+		powerCooldown = 8.0f;
 	}
 	
 	public override void ActivatePower()
@@ -18,18 +18,23 @@ public class FreezeBall : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
+			attachedPlayer.CanMove = false;
+			attachedPlayer.rigidbody.velocity = new Vector3(0, 0, 0);
+			
 			ball = GameObject.Find("GoblinBall(Clone)").GetComponent<GoblinBall>();
 			
 			AudioClip clip = (AudioClip)Resources.Load("Audio/spell");
 			gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
 			
-			attachedPlayer.CanMove = false;
 			powerInUse = true;
 			powerInCooldown = true;
 			cooldown = 0;
 			
-			Status status = ball.gameObject.AddComponent<Frozen>();
-			status.SetEntity(ball.gameObject.GetComponent<GoblinBall>());
+			if(ball.gameObject.GetComponent<Frozen>() == null)
+			{
+				Status status = ball.gameObject.AddComponent<Frozen>();
+				status.SetEntity(ball.gameObject.GetComponent<GoblinBall>());
+			}
 		}
 	}
 	

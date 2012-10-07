@@ -12,13 +12,13 @@ public class Frozen : Status {
 		if(gameObject.CompareTag("Ball"))
 		{
 			ice = (Texture2D)Resources.Load("Sprites/SmallIceBlock");
-			statusTime = 10;
+			statusTime = 1;
 		}
 		
 		else
 		{
 			ice = (Texture2D)Resources.Load("Sprites/BigIceBlock");
-			statusTime = 4;
+			statusTime = 3;
 		}
 		
 		if (prefab == null) {
@@ -61,8 +61,11 @@ public class Frozen : Status {
 				if(contact.otherCollider.gameObject.CompareTag("Player") 
 					&& contact.otherCollider.gameObject.GetComponent<Player>().character != Player.Character.TURQUOISE_MAGE)
 				{
-					Status status = contact.otherCollider.gameObject.AddComponent<Frozen>();
-					status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
+					if(contact.otherCollider.gameObject.GetComponent<Frozen>() == null)
+					{
+						Status status = contact.otherCollider.gameObject.AddComponent<Frozen>();
+						status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
+					}
 				}
 	        }
 		}

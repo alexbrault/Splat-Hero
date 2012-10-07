@@ -135,6 +135,7 @@ public class Grab : Power {
 	void ProcessGrab()
 	{
 		attachedPlayer.CanMove = false;
+		attachedPlayer.rigidbody.velocity = new Vector3(0, 0, 0);
 		
 		PlayGrabAnimation();
 		
