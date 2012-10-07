@@ -62,6 +62,9 @@ public class Player : Entity {
 			break;
 		}
 		
+		MAX_HERO_SPEED *= 1.3f;
+		HERO_ACCELERATION *= 1.3f;
+		
 		gameObject.AddComponent<AudioSource>();
 	
         GameObject mainCamera = GameObject.Find("Main Camera");
