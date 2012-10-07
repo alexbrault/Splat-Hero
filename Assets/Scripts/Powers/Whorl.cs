@@ -5,18 +5,21 @@ public class Whorl : Power {
 	
 	public override void StartPower()
 	{
-		useCooldown = 0.1f;
-		powerCooldown = 1.0f;
+		useCooldown = 0.2f;
+		powerCooldown = 2;
 	}
 	
 	public override void ActivatePower()
 	{
-		if( (attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0 && !powerInCooldown) ||
-			(attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0 && !powerInCooldown) ||
-			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
-			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
+		if( !powerInCooldown && (
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER1 && Input.GetAxisRaw("Player1_Fire") > 0) ||
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER2 && Input.GetAxisRaw("Player2_Fire") > 0) ||
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0) ||
+			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0)))
 		{
 			ProcessWhorl();
+			powerInUse = true;
+			powerInCooldown = true;
 		}
 	}
 
@@ -51,5 +54,5 @@ public class Whorl : Power {
 	
 	public override void ProcessPower(){}
 	public override void UseCooldownCallback(){}
-	public override void PowerCooldownCallback(){}
+	public override void PowerCooldownCallback(){ResetPower();}
 }

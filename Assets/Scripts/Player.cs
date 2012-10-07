@@ -242,10 +242,10 @@ public class Player : Entity {
 		
 		Power kick = gameObject.AddComponent<SmoothKick>();
 		kick.SetPlayer(this);
-		Power dash = gameObject.AddComponent<Whorl>();
-		dash.SetPlayer(this);
+		Power whorl = gameObject.AddComponent<Whorl>();
+		whorl.SetPlayer(this);
 		
-		ShownCooldown = dash;
+		ShownCooldown = whorl;
 		Icon = (Texture2D)Resources.Load("Icon/Shipper.icon");
 	}
 	
