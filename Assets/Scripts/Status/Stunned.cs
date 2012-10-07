@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Stunned : Status {
-	
+	private static Transform prefab;
 	Spritesheet stun = null;
 	GameObject stunObject = null;
 	
@@ -10,16 +10,19 @@ public class Stunned : Status {
 	void Start () {
 		statusTime = 2;
 	}
-	
 	public override void StartStatusEffect()
 	{
 		if(attachedEntity is Player)
 		{
+			if (prefab == null) {
+				prefab = Resources.Load("Stun", typeof(Transform)) as Transform;
+			}
+			
 			attachedEntity.CanMove = false;
 			
 			//stun = (Texture2D)Resources.Load("Sprites/stuntEffect");
 			
-			stunObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+			stunObject = ((Transform)Instantiate(prefab)).gameObject;
 			stunObject.transform.position = gameObject.transform.position + new Vector3(0,2,-10);
 			stunObject.transform.rotation = gameObject.transform.rotation;
 			stunObject.transform.localScale = gameObject.transform.localScale;
@@ -41,9 +44,10 @@ public class Stunned : Status {
 	
 	public override void ProcessStatusEffect()
 	{
-		if(attachedEntity is Player)
+		if(attachedEntity is Player) {
 			attachedEntity.gameObject.rigidbody.velocity = new Vector3(0,0,0);
-		stun.Render();
+			stun.Render();
+		}
 	}
 	
 	public override void EndStatusEffect()

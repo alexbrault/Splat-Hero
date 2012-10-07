@@ -2,6 +2,7 @@ fileFormatVersion: 2
 guid: 08d5f5f4b29a4cc469b932d13f948313
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - prefab: {fileID: 400000, guid: fb6c8eb287d5b7c458da40e5f4726dd3, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
