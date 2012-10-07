@@ -18,6 +18,14 @@ public class FreezeBall : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
+			Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+			if(face == Player.Facing.LEFT)
+				gameObject.GetComponent<Player>().PlayAnimation("CastLeft");
+					
+			else
+				gameObject.GetComponent<Player>().PlayAnimation("CastRight");
+			
 			attachedPlayer.CanMove = false;
 			attachedPlayer.rigidbody.velocity = new Vector3(0, 0, 0);
 			
@@ -55,6 +63,14 @@ public class FreezeBall : Power {
 	public override void UseCooldownCallback()
 	{
 		attachedPlayer.CanMove = true;
+		
+		Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+		if(face == Player.Facing.LEFT)
+			gameObject.GetComponent<Player>().PlayAnimation("RunLeft");
+				
+		else
+			gameObject.GetComponent<Player>().PlayAnimation("RunRight");
 	}
 	
 	public override void PowerCooldownCallback()

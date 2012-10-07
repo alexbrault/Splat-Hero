@@ -160,6 +160,18 @@ public class Player : Entity {
 		spritesheet.AddFrame("GrabRight", 96, 128, 48, 64);
 		spritesheet.AddFrame("GrabRight", 96, 192, 48, 64);
 		
+		spritesheet.CreateAnimation("GrabbingLeft", 50);
+		spritesheet.AddFrame("GrabbingLeft", 192, 0, 48, 64);
+		spritesheet.AddFrame("GrabbingLeft", 192, 64, 48, 64);
+		spritesheet.AddFrame("GrabbingLeft", 192, 128, 48, 64);
+		spritesheet.AddFrame("GrabbingLeft", 192, 192, 48, 64);
+		
+		spritesheet.CreateAnimation("GrabbingRight", 50);
+		spritesheet.AddFrame("GrabbingRight", 240, 0, 48, 64);
+		spritesheet.AddFrame("GrabbingRight", 240, 64, 48, 64);
+		spritesheet.AddFrame("GrabbingRight", 240, 128, 48, 64);
+		spritesheet.AddFrame("GrabbingRight", 240, 192, 48, 64);
+		
 		spritesheet.CreateAnimation("IdleLeft", 0);
 		spritesheet.AddFrame("IdleLeft", 0, 0, 48, 64);
 		
@@ -202,6 +214,18 @@ public class Player : Entity {
 		spritesheet.AddFrame("RunRight", 32, 48, 32, 48);
 		spritesheet.AddFrame("RunRight", 32, 96, 32, 48);
 		spritesheet.AddFrame("RunRight", 32, 144, 32, 48);
+		
+		spritesheet.CreateAnimation("CastLeft", 50);
+		spritesheet.AddFrame("CastLeft", 64, 0, 32, 48);
+		spritesheet.AddFrame("CastLeft", 64, 48, 32, 48);
+		spritesheet.AddFrame("CastLeft", 64, 96, 32, 48);
+		spritesheet.AddFrame("CastLeft", 64, 144, 32, 48);
+		
+		spritesheet.CreateAnimation("CastRight", 50);
+		spritesheet.AddFrame("CastRight", 96, 0, 32, 48);
+		spritesheet.AddFrame("CastRight", 96, 48, 32, 48);
+		spritesheet.AddFrame("CastRight", 96, 96, 32, 48);
+		spritesheet.AddFrame("CastRight", 96, 144, 32, 48);
 		
 		spritesheet.CreateAnimation("IdleLeft", 0);
 		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 48);
@@ -358,7 +382,6 @@ public class Player : Entity {
         }
 
         gameObject.rigidbody.AddForce(new Vector3(HERO_ACCELERATION * xMovement, 0, HERO_ACCELERATION * zMovement));
-		ClampVelocity();
 	}
 	
 	public void ClampVelocity() {

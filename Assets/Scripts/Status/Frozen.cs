@@ -18,7 +18,7 @@ public class Frozen : Status {
 		else
 		{
 			ice = (Texture2D)Resources.Load("Sprites/BigIceBlock");
-			statusTime = 2.5f;
+			statusTime = 3.0f;
 		}
 		
 		if (prefab == null) {

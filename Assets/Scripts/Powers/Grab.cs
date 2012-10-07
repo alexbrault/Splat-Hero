@@ -19,6 +19,14 @@ public class Grab : Power {
 			attachedPlayer.manageAnimation = true;
 			grabbedEntity.GetComponent<Grabbed>().EndStatusEffect();
 			grabbedEntity = null;
+			
+			Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+			if(face == Player.Facing.LEFT)
+				gameObject.GetComponent<Player>().PlayAnimation("RunLeft");
+					
+			else
+				gameObject.GetComponent<Player>().PlayAnimation("RunRight");
 		}
 		
 		else
@@ -39,6 +47,14 @@ public class Grab : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && !powerInCooldown) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && !powerInCooldown))
 		{
+			Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+			if(face == Player.Facing.LEFT)
+				gameObject.GetComponent<Player>().PlayAnimation("GrabbingLeft");
+					
+			else
+				gameObject.GetComponent<Player>().PlayAnimation("GrabbingRight");
+			
 			AudioClip clip = (AudioClip)Resources.Load("Audio/grab");
 			gameObject.GetComponent<AudioSource>().PlayOneShot(clip);
 			
@@ -86,6 +102,14 @@ public class Grab : Power {
 				(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0 && grabbedEntity != null) ||
 				(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0 && grabbedEntity != null))
 			{
+				Player.Facing face = gameObject.GetComponent<Player>().facing;
+		
+				if(face == Player.Facing.LEFT)
+					gameObject.GetComponent<Player>().PlayAnimation("RunLeft");
+						
+				else
+					gameObject.GetComponent<Player>().PlayAnimation("RunRight");
+				
 				Vector3 shoot = gameObject.rigidbody.velocity;
 				shoot.Normalize();
 				
