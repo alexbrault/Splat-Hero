@@ -45,8 +45,11 @@ public class Whorl : Power {
 			
 			else if(collision.collider.CompareTag("Player"))
 			{
-				Status grabbed = collision.collider.gameObject.AddComponent<Stunned>();
-				grabbed.SetEntity(collision.collider.GetComponent<Player>());
+				if(collision.collider.gameObject.GetComponent<Stunned>() == null)
+				{
+					Status grabbed = collision.collider.gameObject.AddComponent<Stunned>();
+					grabbed.SetEntity(collision.collider.GetComponent<Player>());
+				}
 			}
 		}
 		

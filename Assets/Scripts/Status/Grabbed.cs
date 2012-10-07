@@ -66,9 +66,12 @@ public class Grabbed : Status {
 	{
 		if(gameObject.CompareTag("Player") && !collision.gameObject.CompareTag("Player"))
 		{
-			Status status = gameObject.AddComponent<Stunned>();
-			status.SetEntity(gameObject.GetComponent<Player>());
-			
+			if(gameObject.GetComponent<Stunned>() == null)
+			{
+				Status status = gameObject.AddComponent<Stunned>();
+				status.SetEntity(gameObject.GetComponent<Player>());
+			}
+		
 			EndStatusEffect();
 		}
 	}

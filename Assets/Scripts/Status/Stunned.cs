@@ -10,6 +10,7 @@ public class Stunned : Status {
 	void Start () {
 		statusTime = 2;
 	}
+	
 	public override void StartStatusEffect()
 	{
 		if(attachedEntity is Player)
@@ -19,8 +20,6 @@ public class Stunned : Status {
 			}
 			
 			attachedEntity.CanMove = false;
-			
-			//stun = (Texture2D)Resources.Load("Sprites/stuntEffect");
 			
 			stunObject = ((Transform)Instantiate(prefab)).gameObject;
 			stunObject.transform.position = gameObject.transform.position + new Vector3(0,2,-10);

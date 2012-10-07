@@ -54,15 +54,17 @@ public class Dash : Power {
 		foreach (ContactPoint contact in collision.contacts) {
 			if(contact.otherCollider.gameObject.CompareTag("Player") && powerInUse)
 			{
-				Status status = contact.otherCollider.gameObject.AddComponent<Stunned>();
-				status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
-				
-				Grab grab = contact.otherCollider.gameObject.GetComponent<Grab>();
-				
-				if(grab != null)
+				if(contact.otherCollider.gameObject.GetComponent<Stunned>() == null)
 				{
-					grab.Drop();
-				}
+					Status status = contact.otherCollider.gameObject.AddComponent<Stunned>();
+					status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
+				}	
+					Grab grab = contact.otherCollider.gameObject.GetComponent<Grab>();
+					
+					if(grab != null)
+					{
+						grab.Drop();
+					}
 			}
 			
 			else if(!contact.otherCollider.gameObject.CompareTag("Ball"))
