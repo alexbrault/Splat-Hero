@@ -13,8 +13,8 @@ abstract public class Power : MonoBehaviour {
 	protected Player attachedPlayer = null;
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () 
+    {
 		if(powerInCooldown)
 		{
 			cooldown += Time.deltaTime;
