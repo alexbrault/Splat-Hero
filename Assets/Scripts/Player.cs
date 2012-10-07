@@ -22,7 +22,8 @@ public class Player : Entity {
 	{
 		RIRONMAN,
 		LE_TRUC,
-		TURQUOISE_MAGE
+		TURQUOISE_MAGE,
+        SHIPPER
 	};
 	
 	public Character character = Character.RIRONMAN;
@@ -59,10 +60,12 @@ public class Player : Entity {
         GameObject mainCamera = GameObject.Find("Main Camera");
 		
 		try{
-        	mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
+        	mainCamera.GetComponent<GameCamera>().RegisterPlayer(this, this.character);
+            Debug.Log("registering " + this.character);
 		}
 		catch(System.NullReferenceException e)
 		{
+            Debug.Log("registering error");
 		}
 	}
 	

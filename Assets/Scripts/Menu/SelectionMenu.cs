@@ -91,13 +91,16 @@ public class SelectionMenu : MonoBehaviour {
 	public IEnumerator LoadLevel(string level)
 	{
 		yield return new WaitForSeconds(2);
-		
-		AsyncOperation loading = Application.LoadLevelAsync(level);
-		
+
+        //AsyncOperation loading = Application.LoadLevelAsync(level);
+
+        Application.LoadLevel(level);
+
+        /*
 		while(!loading.isDone)
 		{
 			yield return loading;
-		}
+		}*/
 	}
 	
 	void MoveCursor()

@@ -8,13 +8,13 @@ public class GameCamera : MonoBehaviour
     private GameObject leftBorder;
     private GameObject rightBorder;
 
-    private List<Entity> player = new List<Entity>();
+    private List<Entity> playerList = new List<Entity>();
+    private List<GameObject> playerMarkerList = new List<GameObject>();
 
-    public GameObject player1_marker;
-    public GameObject player2_marker;
-
-    private GameObject p1Marker;
-    private GameObject p2Marker;
+    public GameObject marker_LeTruc;
+    public GameObject marker_Rironman;
+    public GameObject marker_TurquoiseMage;
+    public GameObject marker_Shipper;
 
     private float resolutionCorrection;
     private float heroPointerScreenPosX, heroNotVisibleScreenPosX;
@@ -36,68 +36,59 @@ public class GameCamera : MonoBehaviour
         currentBall = target;
     }
 
-    public void RegisterPlayer(Entity aPlayer)
+    public void RegisterPlayer(Entity aPlayer, Player.Character hero)
     {
-        player.Add(aPlayer);
-     
-        if(player.Count == 1)
-            p1Marker = GameObject.Instantiate(player1_marker) as GameObject;
-        else
-            p2Marker = GameObject.Instantiate(player2_marker)as GameObject;
+        playerList.Add(aPlayer);
+        
+        if(hero == Player.Character.LE_TRUC)
+            playerMarkerList.Add(GameObject.Instantiate(marker_LeTruc) as GameObject);
+
+        else if (hero == Player.Character.RIRONMAN)
+            playerMarkerList.Add(GameObject.Instantiate(marker_Rironman) as GameObject);
+
+        else if (hero == Player.Character.TURQUOISE_MAGE)
+            playerMarkerList.Add(GameObject.Instantiate(marker_TurquoiseMage) as GameObject);
+
+        else if (hero == Player.Character.SHIPPER)
+            playerMarkerList.Add(GameObject.Instantiate(marker_Shipper) as GameObject);
     }
 
 	// Update is called once per frame
 	void Update () 
     {
-        float player1PosX = player[0].transform.position.x;
-        float player1PosZ = player[0].transform.position.z;
-
-        if (player1PosX >= transform.position.x + heroNotVisibleScreenPosX)
-        {
-            p1Marker.renderer.enabled = true;
-            p1Marker.transform.position = new Vector3(transform.position.x + heroPointerScreenPosX, 0.0f, player1PosZ);
-        }
-
-        else if (player1PosX <= transform.position.x - heroNotVisibleScreenPosX)
-        {
-            p1Marker.renderer.enabled = true;
-            p1Marker.transform.position = new Vector3(transform.position.x - heroPointerScreenPosX, 0.0f, player1PosZ);
-        }
-
-        else
-        {
-            p1Marker.renderer.enabled = false;
-        }
-
-
-
-        float player2PosX = player[1].transform.position.x;
-        float player2PosZ = player[1].transform.position.z;
-
-        if (player2PosX >= transform.position.x + heroNotVisibleScreenPosX)
-        {
-            p2Marker.renderer.enabled = true;
-            p2Marker.transform.position = new Vector3(transform.position.x + heroPointerScreenPosX, 0.0f, player2PosZ);
-        }
-
-        else if (player2PosX <= transform.position.x - heroNotVisibleScreenPosX)
-        {
-            p2Marker.renderer.enabled = true;
-            p2Marker.transform.position = new Vector3(transform.position.x - heroPointerScreenPosX, 0.0f, player2PosZ);
-        }
-
-        else
-        {
-            p2Marker.renderer.enabled = false;
-        }
-
-
+        float playerPosX, playerPosZ;
 
         if (currentBall != null)
         {
-            float currentBallPosX = currentBall.transform.position.x*0.6f;
+            float currentBallPosX = currentBall.transform.position.x * 0.6f;
 
             transform.position = new Vector3(currentBallPosX, transform.position.y, transform.position.z);
         }	
+
+        if(playerList.Count > 0)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                playerPosX = playerList[i].transform.position.x;
+                playerPosZ = playerList[i].transform.position.z;
+
+                if (playerPosX >= transform.position.x + heroNotVisibleScreenPosX)
+                {
+                    playerMarkerList[i].renderer.enabled = true;
+                    playerMarkerList[i].transform.position = new Vector3(transform.position.x + heroPointerScreenPosX, 0.0f, playerPosZ);
+                }
+
+                else if (playerPosX <= transform.position.x - heroNotVisibleScreenPosX)
+                {
+                    playerMarkerList[i].renderer.enabled = true;
+                    playerMarkerList[i].transform.position = new Vector3(transform.position.x - heroPointerScreenPosX, 0.0f, playerPosZ);
+                }
+
+                else
+                {
+                    playerMarkerList[i].renderer.enabled = false;
+                }
+            }
+        }
 	}
 }
