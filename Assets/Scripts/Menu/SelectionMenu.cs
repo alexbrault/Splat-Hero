@@ -61,7 +61,7 @@ public class SelectionMenu : MonoBehaviour {
 		buttons[1,1] = b4;
 		
 		menuCursor = (GameObject)GameObject.Instantiate(cursor);
-		menuCursor.transform.position = new Vector3(-20,20,0);
+		menuCursor.transform.position = new Vector3(-20,10,-6);
 		
 		DetermineFirstTeam();
 		PlayAudio();
@@ -72,10 +72,10 @@ public class SelectionMenu : MonoBehaviour {
 		activeTeam = Random.Range(1, 3);
 		
 		if(activeTeam == 1)
-			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/rightGoal");
+			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("TeamSelectorLeft");
 		
 		else
-			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/goalLeft");
+			menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("TeamSelectorRight");
 	}
 	
 	void PlayAudio()
@@ -119,7 +119,10 @@ public class SelectionMenu : MonoBehaviour {
 		if(zMovement > 0 && yIndex < 1)
 			yIndex++;
 		
-		menuCursor.transform.position = buttons[xIndex, yIndex].transform.position;
+		Vector3 p = buttons[xIndex, yIndex].transform.position;
+		p.y -= 10;
+		p.z -= 2;
+		menuCursor.transform.position = p;
 	}
 	
 	void SelectCharacter()
@@ -211,7 +214,7 @@ public class SelectionMenu : MonoBehaviour {
 			
 			if(choosenTeam1 + choosenTeam2 == 1 || choosenTeam1 + choosenTeam2 == 3 )
 			{
-				menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/goalLeft");
+				menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("TeamSelectorRight");
 				activeTeam = 2;
 			}
 		}
@@ -231,7 +234,7 @@ public class SelectionMenu : MonoBehaviour {
 			
 			if(choosenTeam1 + choosenTeam2 == 1 || choosenTeam1 + choosenTeam2 == 3 )
 			{
-				menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("Sprites/rightGoal");
+				menuCursor.renderer.material.mainTexture = (Texture2D)Resources.Load("TeamSelectorLeft");
 				activeTeam = 1;
 			}
 		}
