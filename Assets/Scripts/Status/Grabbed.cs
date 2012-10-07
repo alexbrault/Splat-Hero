@@ -19,7 +19,8 @@ public class Grabbed : Status {
 	
 	public override void StartStatusEffect()
 	{
-		attachedEntity.CanMove = false;
+		if(gameObject.CompareTag("Player"))
+			gameObject.GetComponent<Player>().CanMove = false;
 	}
 	
 	public override void ProcessStatusEffect()

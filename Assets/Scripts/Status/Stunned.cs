@@ -40,6 +40,7 @@ public class Stunned : Status {
 	public override void ProcessStatusEffect()
 	{
 		if(attachedEntity is Player) {
+			attachedEntity.CanMove = false;
 			attachedEntity.gameObject.rigidbody.velocity = new Vector3(0,0,0);
 			stun.Render();
 		}

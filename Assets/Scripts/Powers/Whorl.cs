@@ -17,9 +17,12 @@ public class Whorl : Power {
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER3 && Input.GetAxisRaw("Player3_Fire") > 0) ||
 			(attachedPlayer.playerID == Player.PlayerID.PLAYER4 && Input.GetAxisRaw("Player4_Fire") > 0)))
 		{
-			ProcessWhorl();
-			powerInUse = true;
-			powerInCooldown = true;
+			if(attachedPlayer.CanMove)
+			{
+				ProcessWhorl();
+				powerInUse = true;
+				powerInCooldown = true;
+			}
 		}
 	}
 
