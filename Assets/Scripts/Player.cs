@@ -28,25 +28,25 @@ public class Player : Entity {
 		base.Start();
 		
 		spritesheet = new Spritesheet(gameObject);
-		spritesheet.Load("Sprites/ironMan");
+		spritesheet.Load("Sprites/truc");
 		
 		spritesheet.CreateAnimation("RunLeft", 300);
-		spritesheet.AddFrame("RunLeft", 0, 0, 32, 32);
-		spritesheet.AddFrame("RunLeft", 0, 32, 32, 32);
-		spritesheet.AddFrame("RunLeft", 0, 64, 32, 32);
-		spritesheet.AddFrame("RunLeft", 0, 96, 32, 32);
+		spritesheet.AddFrame("RunLeft", 0, 0, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 64, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 128, 48, 64);
+		spritesheet.AddFrame("RunLeft", 0, 192, 48, 64);
 		
 		spritesheet.CreateAnimation("RunRight", 300);
-		spritesheet.AddFrame("RunRight", 32, 0, 32, 32);
-		spritesheet.AddFrame("RunRight", 32, 32, 32, 32);
-		spritesheet.AddFrame("RunRight", 32, 64, 32, 32);
-		spritesheet.AddFrame("RunRight", 32, 96, 32, 32);
+		spritesheet.AddFrame("RunRight", 48, 0, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 64, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 128, 48, 64);
+		spritesheet.AddFrame("RunRight", 48, 192, 48, 64);
 		
 		spritesheet.CreateAnimation("IdleLeft", 0);
-		spritesheet.AddFrame("IdleLeft", 0, 0, 32, 32);
+		spritesheet.AddFrame("IdleLeft", 0, 0, 48, 64);
 		
 		spritesheet.CreateAnimation("IdleRight", 0);
-		spritesheet.AddFrame("IdleRight", 32, 0, 32, 32);
+		spritesheet.AddFrame("IdleRight", 48, 0, 48, 64);
 		
 		spritesheet.SetCurrentAnimation("IdleLeft");
 
