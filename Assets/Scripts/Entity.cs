@@ -28,7 +28,10 @@ public class Entity : MonoBehaviour {
 			
 			if(delayCount > ignoreDelay)
 			{
-				Physics.IgnoreCollision(collider1, collider2, ignoreCollision);
+				try {
+					Physics.IgnoreCollision(collider1, collider2, ignoreCollision);
+				} catch (MissingReferenceException) {
+				}
 				return true;
 			}
 			

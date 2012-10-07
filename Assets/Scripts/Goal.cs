@@ -16,8 +16,13 @@ public class Goal : MonoBehaviour {
 			Score++;
 			label.text = Score.ToString();
 			GameManager.Instance.DestroyObject(candidate.gameObject);
-			GameManager.Instance.NewBall();
+			StartCoroutine(MakeBallSoonish());
 			SplatterShower.Instance.ShowSplatter();
 		}
+	}
+	
+	private IEnumerator MakeBallSoonish() {
+			yield return new WaitForSeconds(2.5f);
+			GameManager.Instance.NewBall();
 	}
 }
