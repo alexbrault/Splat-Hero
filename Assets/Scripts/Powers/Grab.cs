@@ -98,9 +98,10 @@ public class Grab : Power {
 				
 				ResetPower();
 				grabbedEntity = null;
+				powerInUse = true;
 				powerInCooldown = true;
 				useCooldown = 1.0f;
-				powerCooldown = 1.0f;
+				powerCooldown = 2.0f;
 				cooldown = 0;
 			}
 		}
