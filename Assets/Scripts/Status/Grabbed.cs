@@ -19,6 +19,7 @@ public class Grabbed : Status {
 		{
 			gameObject.rigidbody.velocity = new Vector3(0,0,0);
 			gameObject.transform.position = attachedEntity.transform.position;
+			gameObject.transform.Translate(0, 0, -11);
 		}
 		
 		else if(gameObject.CompareTag("Player"))

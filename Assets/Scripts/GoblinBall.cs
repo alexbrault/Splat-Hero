@@ -58,19 +58,6 @@ public class GoblinBall : Entity {
 		isLocked = true;
 	}
 	
-	void OnCollisionEnter(Collision collision)
-	{
-		if(!isLocked)
-		{
-			foreach (ContactPoint contact in collision.contacts) {
-				Vector3 vect = gameObject.transform.position - contact.point;
-				vect.Normalize();
-				vect *= 25;
-	            gameObject.rigidbody.AddForce(vect);
-	        }
-		}
-	}
-	
 	void Wander()
 	{
 		wanderTheta += Random.Range(-change, change);
@@ -133,5 +120,32 @@ public class GoblinBall : Entity {
 			steer = new Vector3(0,0,0);
 		
 		return steer;
+	}
+	
+	void OnCollisionEnter(Collision collision)
+	{
+		if(CanMove && !isLocked)
+		{
+			foreach (ContactPoint contact in collision.contacts) {
+			
+				Vector3 vect = gameObject.transform.position - contact.point;
+				vect.Normalize();
+				vect *= 25;
+	            gameObject.rigidbody.AddForce(vect);
+	        }
+		}
+	}
+	
+	void OnCollisionStay(Collision collision)
+	{
+		if(CanMove && !isLocked)
+		{
+			foreach (ContactPoint contact in collision.contacts) {
+				Vector3 vect = gameObject.transform.position - contact.point;
+				vect.Normalize();
+							
+				gameObject.transform.Translate(vect * 0.1f);
+	        }
+		}
 	}
 }

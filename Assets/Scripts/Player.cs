@@ -161,4 +161,17 @@ public class Player : Entity {
 				spritesheet.SetCurrentAnimation("IdleRight");
 		}
 	}
+	
+	void OnCollisionStay(Collision collision)
+	{
+		if(CanMove)
+		{
+			foreach (ContactPoint contact in collision.contacts) {
+				Vector3 vect = gameObject.transform.position - contact.point;
+				vect.Normalize();
+				
+				gameObject.transform.Translate(vect * 0.1f);
+	        }
+		}
+	}
 }
