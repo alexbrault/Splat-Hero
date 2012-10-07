@@ -33,7 +33,8 @@ public class Frozen : Status {
 		if(gameObject.CompareTag("Ball"))
 		{
 			foreach (ContactPoint contact in collision.contacts) {
-				if(contact.otherCollider.gameObject.CompareTag("Player"))
+				if(contact.otherCollider.gameObject.CompareTag("Player") 
+					&& contact.otherCollider.gameObject.GetComponent<Player>().character != Player.Character.TURQUOISE_MAGE)
 				{
 					Status status = contact.otherCollider.gameObject.AddComponent<Frozen>();
 					status.SetEntity(contact.otherCollider.gameObject.GetComponent<Player>());
