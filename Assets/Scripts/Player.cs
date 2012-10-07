@@ -37,7 +37,7 @@ public class Player : Entity {
 	
 	public bool manageAnimation = true;
 	
-	// Use this for initialization
+	// Use this for initializations
 	void Start () {
 		base.Start();
 		
@@ -55,9 +55,15 @@ public class Player : Entity {
 			CreateTurquoiseMage();
 			break;
 		}
-
+	
         GameObject mainCamera = GameObject.Find("Main Camera");
-        mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
+		
+		try{
+        	mainCamera.GetComponent<GameCamera>().RegisterPlayer(this);
+		}
+		catch(System.NullReferenceException e)
+		{
+		}
 	}
 	
 	void CreateRironman()
