@@ -26,9 +26,9 @@ public class HUD : MonoBehaviour {
 		r = new ScalableRect(334, 0, 38, 38);
 		GUI.DrawTexture(r * scale, Player2_Bench, ScaleMode.ScaleToFit);
 		
-		r = new ScalableRect(230, 0, 60, 60);
+		r = new ScalableRect(240, 0, 50, 50);
 		GUI.DrawTexture(r * scale, Player1_Active, ScaleMode.ScaleToFit);
-		r = new ScalableRect(291, 0, 60, 60);
+		r = new ScalableRect(291, 0, 50, 50);
 		GUI.DrawTexture(r * scale, Player2_Active, ScaleMode.ScaleToFit);
 	}
 }
