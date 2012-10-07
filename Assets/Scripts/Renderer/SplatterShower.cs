@@ -6,7 +6,7 @@ public class SplatterShower : MonoBehaviour {
 	private Spritesheet sprites;
 		
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		if (Instance == null) {
 			Instance = this;
 		}
